@@ -4,7 +4,7 @@ import OwnerEditorBar from '../components/shared/OwnerEditorBar';
 
 import '../styles/createBlogView.scss';
 
-function CreateBlogView() {
+function CreateBlogView({signOut}) {
   const [title, setTitle] = useState("");
 
   // function handleClose() {
@@ -20,7 +20,7 @@ function CreateBlogView() {
 
   return (
     <div className="create-blog-view view">
-      <MainBar />
+      <MainBar signOut={signOut} />
       <OwnerEditorBar />
       <section className="main-section section">
         <div className="blog-content content">

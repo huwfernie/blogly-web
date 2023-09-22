@@ -9,10 +9,14 @@ import '../styles/editBlogView.scss';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function EditBlogView() {
+// import { useAuthenticator } from '@aws-amplify/ui-react';
+
+function EditBlogView({signOut}) {
   const [blog, setBlog] = useState({});
   const [blogContent, setBlogContent] = useState('');
   const [spinner, setSpinner] = useState(false);
+  // const { user } = useAuthenticator((context) => [context.user]);
+  // if user id !=== author id then redirect to blog show page?
 
   const quillElement = useRef();
 
@@ -81,7 +85,7 @@ function EditBlogView() {
 
   return (
     <div className="edit-blog-view view" data-testid="edit-blog-view">
-      <MainBar />
+      <MainBar signOut={signOut} />
       <nav className="editor-bar bar">
         <button onClick={handleSave}>Save</button>
         <button>Delete</button>

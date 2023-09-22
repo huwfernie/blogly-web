@@ -1,0 +1,63 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bloglyweb-staging-93729-authRole",
+      "UnauthRoleArn": "arn:aws:iam::482668114863:role/amplify-bloglyweb-staging-93729-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::482668114863:role/amplify-bloglyweb-staging-93729-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-bloglyweb-staging-93729-deployment",
+      "UnauthRoleName": "amplify-bloglyweb-staging-93729-unauthRole",
+      "StackName": "amplify-bloglyweb-staging-93729",
+      "StackId": "arn:aws:cloudformation:eu-west-2:482668114863:stack/amplify-bloglyweb-staging-93729/a63c4ea0-592b-11ee-aa6c-0a03d2b5d37c",
+      "AmplifyAppId": "d19sv6dig5w8bl"
+    }
+  },
+  "auth": {
+    "bloglyweb": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "PREFERRED_USERNAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ]
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/auth/bloglyweb-cloudformation-template.json",
+        "logicalId": "authbloglyweb"
+      },
+      "lastPushTimeStamp": "2023-09-22T10:17:33.106Z",
+      "output": {
+        "UserPoolId": "eu-west-2_AxJbk6Rhw",
+        "AppClientIDWeb": "7ssltv4h4tosq4uimfo9qm7vld",
+        "AppClientID": "jifc9hii17n1qqr2otljr1m89",
+        "IdentityPoolId": "eu-west-2:9f317935-f014-44d4-8197-53771978eefa",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-2:482668114863:userpool/eu-west-2_AxJbk6Rhw",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "bloglyweb"
+      },
+      "lastPushDirHash": "OWc5GlD6HD8NdzKU2dMpXudwjzU="
+    }
+  }
+}

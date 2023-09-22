@@ -36,9 +36,15 @@ describe('EditBlogView - buttons', () => {
         expect(el).toBeInTheDocument();
     });
 
-    it('Should render publish', () => {
+    it('Should render Public', () => {
         render(<MemoryRouter><EditBlogView /></MemoryRouter>);
-        const el = screen.getByText('Publish');
+        const el = screen.getByText('Public');
+        expect(el).toBeInTheDocument();
+    });
+
+    it('Should render Private', () => {
+        render(<MemoryRouter><EditBlogView /></MemoryRouter>);
+        const el = screen.getByText('Private');
         expect(el).toBeInTheDocument();
     });
 });

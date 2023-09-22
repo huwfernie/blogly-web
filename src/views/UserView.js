@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
 import MainBar from '../components/shared/MainBar';
 import { Link } from 'react-router-dom';
+// import { useAuthenticator } from '@aws-amplify/ui-react';
 
 import '../styles/userView.scss';
 
-function UserView() {
+function UserView({user, signOut}) {
   const [userData, setUserData] = useState({ blogs: null, user: null });
+  // const { user } = useAuthenticator((context) => [context.user]);
+  // console.log(user);
+
 
   useEffect(() => {
     async function fetchData() {
       const _data = {
         user: {
-          id: "007df37bd4e4f1097d122983daa56ca",
-          username: "A B Creely",
-          joinedDate: "01/11/2011"
+          attributes: {
+            sub: "007df37bd4e4f1097d122983daa56ca",
+            preferred_username: "A B Creely",
+            email: "test@test.com"
+          }
         },
         blogs: [
           {
@@ -63,15 +69,14 @@ function UserView() {
     }
   }
 
-  function UserData({ data }) {
+  function UserData() {
     try {
       return (
         <div className="user-data-wrapper">
           <h2>Account settings</h2>
-          <div><span>ID : </span>{data.id}</div>
-          <div><span>User Name : </span>{data.username}</div>
-          <div><span>Joined Date : </span>{data.joinedDate}</div>
-          <a href="/todo">Edit</a>
+          <div><span>ID : </span>{user.attributes.sub}</div>
+          <div><span>User Name : </span>{user.attributes.preferred_username}</div>
+          <div><span>Registered Email : </span>{user.attributes.email}</div>
         </div>
       );
     } catch (error) {
@@ -81,13 +86,13 @@ function UserView() {
 
   return (
     <div className="user-view" data-testid="user-view">
-      <MainBar />
+      <MainBar signOut={signOut} />
       <section className="section">
         <div className="user-content content">
           <h1 className="headline">User Account Page</h1>
           <div className="grid">
             <BlogList data={userData.blogs} />
-            <UserData data={userData.user} />
+            <UserData />
           </div>
         </div>
       </section>

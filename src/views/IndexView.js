@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 import '../styles/index.scss';
+import { Link } from 'react-router-dom';
 // import { getFiveRecentBlogs } from '../helpers/Index';
 
 
-function Index() {
+
+function Index({ user, signOut }) {
   const [searchValue, setSearchValue] = useState("");
   const [blogList, setBlogList] = useState([]);
+  if (user) {
+    console.log(user);
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -63,12 +68,20 @@ function Index() {
   }
 
   function IndexBar() {
-    return (
-      <nav className="index-bar bar">
-        <span>Sign Up</span> or 
-        <span>Sign In</span>
-      </nav>
-    )
+    if (user === undefined) {
+      return (
+        <nav className="index-bar bar">
+          <span><Link to="/login">Sign Up</Link></span> or 
+          <span><Link to="/login">Sign In</Link></span>
+        </nav>
+      )
+    } else {
+      return (
+        <nav className="index-bar bar">
+          <span onClick={signOut}>Sign Out</span>
+        </nav>
+      )
+    }
   }
 
   return (

@@ -3,8 +3,15 @@ import MainBar from '../components/shared/MainBar';
 import OwnerEditorBar from '../components/shared/OwnerEditorBar';
 import Footer from '../components/shared/Footer';
 import '../styles/showBlogView.scss';
+import { useParams } from 'react-router-dom';
+// import { useAuthenticator } from '@aws-amplify/ui-react';
 
-function BlogShowView() {
+function BlogShowView({user, signOut}) {
+  const { id } = useParams();
+  // const { user } = useAuthenticator((context) => [context.user]);
+  // console.log(user);
+  // if user.id === author.id then render editor bar
+
   const initialBlog = {
     id: "",
     title: "",
@@ -17,7 +24,7 @@ function BlogShowView() {
   const reef = useRef();
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(id) {
       // const data = await getFiveRecentBlogs();
       const _data = {
         id: "1eaadf37bd4e4f1097d122983daa56ca",
@@ -30,8 +37,8 @@ function BlogShowView() {
       setBlog(_data);
       return;
     }
-    fetchData();
-  }, []);
+    fetchData(id);
+  }, [id]);
 
   useEffect(() => {
     if (reef.current !== undefined) {
@@ -42,7 +49,7 @@ function BlogShowView() {
   try {
     return (
       <div className="show-blog-view view" data-testid="showBlogView">
-        <MainBar />
+      <MainBar signOut={signOut} />
         <OwnerEditorBar owner={true} blogId={blog.id} />
         <section className="main-section section">
           <div className="blog-content content">

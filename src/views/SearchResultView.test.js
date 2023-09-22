@@ -3,7 +3,6 @@ import CreateBlogView from "./CreateBlogView";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from 'react-router-dom';
 
-
 it('Should render a title', async () => {
     render(<MemoryRouter><CreateBlogView /></MemoryRouter>);
     const form = screen.queryByTestId('new-blog-form');

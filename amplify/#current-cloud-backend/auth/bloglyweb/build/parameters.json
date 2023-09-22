@@ -1,0 +1,64 @@
+{
+  "identityPoolName": "testAuthIdentityPool",
+  "allowUnauthenticatedIdentities": false,
+  "resourceNameTruncated": "bloglya11de804",
+  "userPoolName": "bloglyweb",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
+  "mfaConfiguration": "OFF",
+  "mfaTypes": [
+    "SMS Text Message"
+  ],
+  "smsAuthenticationMessage": "Your authentication code is {####}",
+  "smsVerificationMessage": "Your verification code is {####}",
+  "emailVerificationSubject": "Verification code: {####}",
+  "emailVerificationMessage": "Verification code: {####}",
+  "defaultPasswordPolicy": false,
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [
+    "Requires Lowercase",
+    "Requires Numbers",
+    "Requires Symbols",
+    "Requires Uppercase"
+  ],
+  "requiredAttributes": [
+    "preferred_username"
+  ],
+  "aliasAttributes": [],
+  "userpoolClientGenerateSecret": false,
+  "userpoolClientRefreshTokenValidity": 30,
+  "userpoolClientWriteAttributes": [],
+  "userpoolClientReadAttributes": [],
+  "userpoolClientLambdaRole": "bloglya11de804_userpoolclient_lambda_role",
+  "userpoolClientSetAttributes": false,
+  "sharedId": "a11de804",
+  "resourceName": "bloglyweb",
+  "authSelections": "identityPoolAndUserPool",
+  "serviceName": "Cognito",
+  "usernameAttributes": [
+    "email"
+  ],
+  "useDefault": "manual",
+  "userPoolGroups": false,
+  "userPoolGroupList": [],
+  "adminQueries": false,
+  "thirdPartyAuth": false,
+  "authProviders": [],
+  "usernameCaseSensitive": false,
+  "useEnabledMfas": true,
+  "authRoleArn": {
+    "Fn::GetAtt": [
+      "AuthRole",
+      "Arn"
+    ]
+  },
+  "unauthRoleArn": {
+    "Fn::GetAtt": [
+      "UnauthRole",
+      "Arn"
+    ]
+  },
+  "breakCircularDependency": true,
+  "dependsOn": []
+}
