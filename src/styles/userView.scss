@@ -1,0 +1,32 @@
+
+.user-view {
+    .headline {
+        // margin-bottom: 0;
+        // font-size: 64px;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blog-list-wrapper {
+        .list {
+            list-style: none;
+            padding: 0;
+    
+            .title {
+                margin-bottom: 0.25em;
+            }
+        }
+    }
+
+    .user-data-wrapper {
+        div {
+            margin-bottom: 0.75em;
+        }
+    }
+}
