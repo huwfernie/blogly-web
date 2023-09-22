@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import './app.css';
+import './App.css';
 import IndexView from './views/IndexView';
 import ShowBlogView from './views/ShowBlogView';
 import EditBlogView from './views/EditBlogView';
