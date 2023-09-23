@@ -52,11 +52,29 @@
         "IdentityPoolName": "testAuthIdentityPool__staging",
         "UserPoolName": "bloglyweb"
       },
-      "lastPushTimeStamp": "2023-09-22T12:17:09.426Z",
+      "lastPushTimeStamp": "2023-09-23T11:39:19.724Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/auth/bloglyweb-cloudformation-template.json",
         "logicalId": "authbloglyweb"
-      }
+      },
+      "lastPushDirHash": "DF4iv/azeYJECbhEZZ8L6bJvbo0="
+    }
+  },
+  "storage": {
+    "s3bloglywebstorage88e64e54": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2023-09-23T11:39:20.460Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages3bloglywebstorage88e64e54"
+      },
+      "output": {
+        "BucketName": "blogly-web-storage-88e64e5493729-staging",
+        "Region": "eu-west-2"
+      },
+      "lastPushDirHash": "tj1ifj1wxJqswZtn1Suw797oBMk="
     }
   }
 }

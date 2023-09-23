@@ -14,17 +14,12 @@
   },
   "auth": {
     "bloglyweb": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
       "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "PREFERRED_USERNAME"
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
@@ -35,19 +30,19 @@
             "REQUIRES_UPPERCASE"
           ]
         },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
+        "signupAttributes": [
+          "PREFERRED_USERNAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
         ],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/auth/bloglyweb-cloudformation-template.json",
-        "logicalId": "authbloglyweb"
-      },
-      "lastPushTimeStamp": "2023-09-22T10:17:33.106Z",
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
       "output": {
         "UserPoolId": "eu-west-2_AxJbk6Rhw",
         "AppClientIDWeb": "7ssltv4h4tosq4uimfo9qm7vld",
@@ -57,7 +52,29 @@
         "IdentityPoolName": "testAuthIdentityPool__staging",
         "UserPoolName": "bloglyweb"
       },
-      "lastPushDirHash": "OWc5GlD6HD8NdzKU2dMpXudwjzU="
+      "lastPushTimeStamp": "2023-09-23T11:35:51.565Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/auth/bloglyweb-cloudformation-template.json",
+        "logicalId": "authbloglyweb"
+      },
+      "lastPushDirHash": "DF4iv/azeYJECbhEZZ8L6bJvbo0="
+    }
+  },
+  "storage": {
+    "s3bloglywebstorage88e64e54": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2023-09-23T11:35:51.565Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages3bloglywebstorage88e64e54"
+      },
+      "output": {
+        "BucketName": "blogly-web-storage-88e64e5493729-staging",
+        "Region": "eu-west-2"
+      },
+      "lastPushDirHash": "tj1ifj1wxJqswZtn1Suw797oBMk="
     }
   }
 }

@@ -9,5 +9,11 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolId": "string",
       "UserPoolName": "string"
     }
+  },
+  "storage": {
+    "s3bloglywebstorage88e64e54": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

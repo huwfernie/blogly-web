@@ -158,7 +158,7 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/auth/bloglyweb-cloudformation-template.json",
         "Parameters": {
           "identityPoolName": "testAuthIdentityPool",
-          "allowUnauthenticatedIdentities": false,
+          "allowUnauthenticatedIdentities": true,
           "resourceNameTruncated": "bloglya11de804",
           "userPoolName": "bloglyweb",
           "autoVerifiedAttributes": "email",
@@ -206,6 +206,39 @@
           },
           "breakCircularDependency": true,
           "dependsOn": "",
+          "env": "staging"
+        }
+      }
+    },
+    "storages3bloglywebstorage88e64e54": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-bloglyweb-staging-93729-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "Parameters": {
+          "bucketName": "blogly-web-storage-88e64e54",
+          "selectedGuestPermissions": "s3:GetObject,s3:ListBucket",
+          "selectedAuthenticatedPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject",
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "s3PrivatePolicy": "Private_policy_5206e703",
+          "s3ProtectedPolicy": "Protected_policy_5206e703",
+          "s3PublicPolicy": "Public_policy_5206e703",
+          "s3ReadPolicy": "read_policy_5206e703",
+          "s3UploadsPolicy": "Uploads_policy_5206e703",
+          "authPolicyName": "s3_amplify_5206e703",
+          "unauthPolicyName": "s3_amplify_5206e703",
+          "AuthenticatedAllowList": "ALLOW",
+          "GuestAllowList": "ALLOW",
+          "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+          "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+          "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject,s3:DeleteObject",
+          "s3PermissionsAuthenticatedUploads": "s3:PutObject",
+          "s3PermissionsGuestPublic": "s3:GetObject",
+          "s3PermissionsGuestUploads": "DISALLOW",
           "env": "staging"
         }
       }

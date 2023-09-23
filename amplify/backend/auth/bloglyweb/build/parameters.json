@@ -1,6 +1,6 @@
 {
   "identityPoolName": "testAuthIdentityPool",
-  "allowUnauthenticatedIdentities": false,
+  "allowUnauthenticatedIdentities": true,
   "resourceNameTruncated": "bloglya11de804",
   "userPoolName": "bloglyweb",
   "autoVerifiedAttributes": [
