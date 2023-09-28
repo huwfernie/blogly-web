@@ -1,0 +1,16 @@
+{
+  "resourceName": "blogStorage",
+  "policyUUID": "84ee4cc5",
+  "bucketName": "bloglyweb40a6b9f4604449718a25012fe5dde19f",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

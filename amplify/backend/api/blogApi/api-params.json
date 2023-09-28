@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/blog/{blogId}",
+      "lambdaFunction": "blogLambda",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/blog/*"
+    }
+  ],
+  "resourceName": "blogApi",
+  "apiName": "blogApi",
+  "functionArns": [
+    {
+      "lambdaFunction": "blogLambda"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-bloglyweb-dev-125048-authRole",
+    "unAuthRoleName": "amplify-bloglyweb-dev-125048-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "blogLambda",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

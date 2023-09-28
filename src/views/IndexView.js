@@ -3,7 +3,7 @@ import '../styles/index.scss';
 import { Link } from 'react-router-dom';
 // import { getFiveRecentBlogs } from '../helpers/Index';
 
-import { createBlog, deleteBlog, getBlog } from '../helpers/blogLambda';
+import { createBlog, deleteBlog, getBlog, updateBlog } from '../helpers/blogLambda';
 
 
 
@@ -75,6 +75,10 @@ function Index({ user, signOut }) {
         <nav className="index-bar bar">
           <span><Link to="/login">Sign Up</Link></span> or 
           <span><Link to="/login">Sign In</Link></span>
+          <div onClick={() => {createBlog({ title: "TEST", authorId: "012"})}}>Create</div>
+          <div onClick={() => {updateBlog({ title: "GoGoGo", authorId: "012", blogId: "5fc777fd-f362-493b-9870-d26abdabab4f"})}}>Update</div>
+          <div onClick={() => {deleteBlog({ blogId: "5fc777fd-f362-493b-9870-d26abdabab4f", userId: "012" })}}>Delete</div>
+          <div onClick={() => {getBlog({blogId: "5fc777fd-f362-493b-9870-d26abdabab4f", authorId: "012"})}}>Get</div>
         </nav>
       )
     } else {
@@ -82,9 +86,6 @@ function Index({ user, signOut }) {
         <nav className="index-bar bar">
           <span><Link to="/c">Create</Link></span> 
           <span onClick={signOut}>Sign Out</span>
-          <div onClick={() => {createBlog({id: "1"})}}>Create</div>
-          <div onClick={() => {deleteBlog({id: "1"})}}>Delete</div>
-          <div onClick={() => {getBlog({id: "1"})}}>Get</div>
         </nav>
       )
     }

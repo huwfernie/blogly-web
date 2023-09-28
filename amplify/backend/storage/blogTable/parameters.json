@@ -1,0 +1,7 @@
+{
+    "tableName": "blogTable",
+    "partitionKeyName": "blogId",
+    "partitionKeyType": "S",
+    "sortKeyName": "userId",
+    "sortKeyType": "S"
+}
