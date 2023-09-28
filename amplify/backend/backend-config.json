@@ -9,6 +9,14 @@
           ],
           "category": "function",
           "resourceName": "blogLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "blogUsersLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -63,6 +71,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "blogUsersLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -79,6 +92,22 @@
         {
           "category": "function",
           "resourceName": "blogLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_blogUsersLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "blogUsersLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_blogUsersLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "blogUsersLambda"
         }
       ]
     }

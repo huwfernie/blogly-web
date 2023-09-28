@@ -9,28 +9,26 @@ import '../styles/createBlogView.scss';
 import { useNavigate } from "react-router-dom";
 
 
-function CreateBlogView({user, signOut}) {
+function CreateBlogView({ user, signOut }) {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
   async function handleCreate(event) {
     event.preventDefault();
-    let uuid = crypto.randomUUID();
     const _title = title === "" ? "Blog Title" : title;
+    const authorId = user.attributes.sub;
 
-    
-    console.log(`New Blog Coming Up :: ${_title} :: ${uuid}`);
+    console.log(`New Blog Coming Up :: ${_title} :: ${authorId}`);
     const data = {
-      id: uuid,
       title: _title,
+      authorId,
       publishedDate: "",
-      published: false,
-      authorId: user.attributes.sub
+      published: false
     }
 
     const response = await createBlog(data);
     console.log(response);
-    navigate(`/e/${uuid}`);
+    navigate(`/e/${response}`);
   }
 
   return (

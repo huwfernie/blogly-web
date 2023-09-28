@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "paths": {
+    "/blog/{blogId}": {
+      "permissions": {
+        "setting": "open"
+      },
+      "lambdaFunction": "blogLambda"
+    },
+    "/users/{userId}": {
+      "name": "/users/{userId}",
+      "lambdaFunction": "blogUsersLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
+    }
+  }
+}

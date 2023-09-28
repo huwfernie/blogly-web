@@ -30,7 +30,7 @@ function EditBlogView({ user, signOut }) {
   useEffect(() => {
     console.log("userId : ", userId);
     async function fetchData() {
-      const everything = await getBlog({ id });
+      const everything = await getBlog({ blogId: id });
       // // const savedBlog = await getBlogStorage({ id });
       // console.log("everything");
       // console.log(everything);
@@ -93,7 +93,7 @@ function EditBlogView({ user, signOut }) {
     setSpinner(true);
     const { title, body } = sanitizeText(blogContent);
     const data = {
-      id,
+      blogId: id,
       title: title,
       textContent: body,
       publishedDate: blog.publishedDate,
@@ -107,7 +107,7 @@ function EditBlogView({ user, signOut }) {
 
   async function handleDelete() {
     setSpinner(true);
-    await deleteBlog({id})
+    await deleteBlog({ blogId: id })
     setSpinner(false);
     return;
   }

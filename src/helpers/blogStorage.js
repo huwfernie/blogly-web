@@ -1,10 +1,24 @@
 import { Storage } from "@aws-amplify/storage"
 
-async function getBlog({ id }) {
-    if (id === undefined) {
+// CREATE
+async function createBlog({ blogId, file }) {
+    if (blogId === undefined) {
         return "ID must be defined";
     } else {
-        const data = await Storage.get(`blog/${id}.txt`, {
+        const data = await Storage.put(`blog/${blogId}.txt`, file, {
+            level: 'protected',
+            contentType: 'text/plain'
+        });
+        return data;
+    }
+}
+
+// READ
+async function getBlog({ blogId }) {
+    if (blogId === undefined) {
+        return "ID must be defined";
+    } else {
+        const data = await Storage.get(`blog/${blogId}.txt`, {
             level: 'protected',
             download: true
         });
@@ -13,11 +27,12 @@ async function getBlog({ id }) {
     }
 }
 
-async function updateBlog({ id, file }) {
-    if (id === undefined) {
+// UPDATE
+async function updateBlog({ blogId, file }) {
+    if (blogId === undefined) {
         return "ID must be defined";
     } else {
-        const data = await Storage.put(`blog/${id}.txt`, file, {
+        const data = await Storage.put(`blog/${blogId}.txt`, file, {
             level: 'protected',
             contentType: 'text/plain'
         });
@@ -25,14 +40,16 @@ async function updateBlog({ id, file }) {
     }
 }
 
-async function deleteBlog({ id }) {
-    if (id === undefined) {
+// DELETE
+async function deleteBlog({ blogId }) {
+    if (blogId === undefined) {
         return "ID must be defined";
     } else {
-        await Storage.remove(`blog/${id}.txt`, { level: 'protected' });
+        await Storage.remove(`blog/${blogId}.txt`, { level: 'protected' });
     }
 }
 
+// READ FIVE
 async function getFiveBlogs() {
     let response = await Storage.list('blog/', {
         level: 'protected',
@@ -41,4 +58,4 @@ async function getFiveBlogs() {
     return response;
 }
 
-export { getBlog, updateBlog, deleteBlog, getFiveBlogs }
+export { createBlog, getBlog, updateBlog, deleteBlog, getFiveBlogs }
