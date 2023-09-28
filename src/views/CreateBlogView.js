@@ -2,10 +2,7 @@ import { useState } from 'react';
 import MainBar from '../components/shared/MainBar';
 import OwnerEditorBar from '../components/shared/OwnerEditorBar';
 import { createBlog } from '../helpers/blogLambda';
-// // @TODO
-// import { createBlog as updateBlogDatabase } from '../helpers/blogDatabase';
 import '../styles/createBlogView.scss';
-// import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 

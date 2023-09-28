@@ -50,9 +50,9 @@ async function getBlog({ blogId }) {
         const data = response
         // console.log(data);
 
+        // @TODO
         // Step 2. exchange authorId for author username, via new request through API Gateway (blogApi) and Lambda (bloglyWebUsersLambda)
         // path = `/users/${data.authorId}/object/${data.authorId}`;
-        // @TODO
         // path = `/users/${data.authorId}`;
         // const userNameLookup = await API.get(apiName, path, myInit);
         const userNameLookup = "TEST NAME STRING";
