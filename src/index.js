@@ -19,15 +19,25 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import { RequireAuth } from './components/RequireAuth';
 import { BypassAuth } from './components/BypassAuth';
 
-
-
-
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 
+// @TODO - Production
 Amplify.configure(awsExports);
+// @TODO - END
+
+
+// @TODO development
+// Amplify.configure({
+//     ...awsExports,
+//     Analytics: { 
+//       disabled: true
+//     }
+// });
+// @TODO - END
+
 
 const router = createBrowserRouter([
   {

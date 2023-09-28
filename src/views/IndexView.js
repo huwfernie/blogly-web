@@ -3,6 +3,8 @@ import '../styles/index.scss';
 import { Link } from 'react-router-dom';
 // import { getFiveRecentBlogs } from '../helpers/Index';
 
+import { createBlog, deleteBlog, getBlog } from '../helpers/blogLambda';
+
 
 
 function Index({ user, signOut }) {
@@ -78,7 +80,11 @@ function Index({ user, signOut }) {
     } else {
       return (
         <nav className="index-bar bar">
+          <span><Link to="/c">Create</Link></span> 
           <span onClick={signOut}>Sign Out</span>
+          <div onClick={() => {createBlog({id: "1"})}}>Create</div>
+          <div onClick={() => {deleteBlog({id: "1"})}}>Delete</div>
+          <div onClick={() => {getBlog({id: "1"})}}>Get</div>
         </nav>
       )
     }

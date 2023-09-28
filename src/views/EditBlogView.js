@@ -3,40 +3,63 @@ import { useRef } from "react";
 import MainBar from '../components/shared/MainBar';
 import Spinner from '../components/shared/spinner';
 import Footer from '../components/shared/Footer';
+import { useParams } from 'react-router-dom';
+
 
 import '../styles/editBlogView.scss';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+import { getBlog, updateBlog, deleteBlog } from '../helpers/blogLambda';
+
 // import { useAuthenticator } from '@aws-amplify/ui-react';
 
-function EditBlogView({signOut}) {
+function EditBlogView({ user, signOut }) {
   const [blog, setBlog] = useState({});
   const [blogContent, setBlogContent] = useState('');
   const [spinner, setSpinner] = useState(false);
+
+  const userId = user.attributes.sub;
   // const { user } = useAuthenticator((context) => [context.user]);
   // if user id !=== author id then redirect to blog show page?
-
+  
+  let { id } = useParams();
   const quillElement = useRef();
-
+  
   useEffect(() => {
-
+    console.log("userId : ", userId);
     async function fetchData() {
-      const _data = {
-        id: "1eaadf37bd4e4f1097d122983daa56ca",
-        title: "Blog 1 Heading",
-        textContent: "<p>this is some text</p><p>this is a quote</p><h2>This is another heading</h2><p><br></p><p>End</p>",
-        publishedDate: "",
-        published: false,
-        author: "A B Creely"
-      }
-      setBlog(_data);
-      setBlogContent(`<h1>${_data.title}</h1>${_data.textContent}`);
+      const everything = await getBlog({ id });
+      // // const savedBlog = await getBlogStorage({ id });
+      // console.log("everything");
+      // console.log(everything);
+      // const savedBlogDetails = await getBlogDatabase({ id });
+      // // console.log(savedBlogDetails);
+      // const { title, body } = sanitizeText(savedBlog);
+      // const { publishedDate, published, author } = savedBlogDetails
+      // const _data = {
+      //   id,
+      //   title,
+      //   textContent: body,
+      //   publishedDate,
+      //   published,
+      //   author
+      // }
+      // // const _data = {
+      // //   id: "1eaadf37bd4e4f1097d122983daa56ca",
+      // //   title: "Blog 1 Heading",
+      // //   textContent: "<p>this is some text</p><p>this is a quote</p><h2>This is another heading</h2><p><br></p><p>End</p>",
+      // //   publishedDate: "",
+      // //   published: false,
+      // //   author: "A B Creely"
+      // // }
+      setBlog(everything);
+      setBlogContent(`<h1>${everything.title}</h1>${everything.body}`);
       return;
     }
     fetchData();
-  }, []);
+  }, [id]);
 
   // @TODO - prompt if you have changes and navigate away from the page
 
@@ -66,21 +89,27 @@ function EditBlogView({signOut}) {
     setBlog(newState);
   }
 
-  function handleSave() {
+  async function handleSave() {
     setSpinner(true);
     const { title, body } = sanitizeText(blogContent);
     const data = {
-      id: blog.id,
+      id,
       title: title,
       textContent: body,
       publishedDate: blog.publishedDate,
       published: blog.published,
-      author: blog.author
+      authorId: userId
     }
-    setTimeout(() => {
-      setSpinner(false);
-    }, 1000);
+    await updateBlog(data)
+    setSpinner(false);
     return data;
+  }
+
+  async function handleDelete() {
+    setSpinner(true);
+    await deleteBlog({id})
+    setSpinner(false);
+    return;
   }
 
   return (
@@ -88,9 +117,9 @@ function EditBlogView({signOut}) {
       <MainBar signOut={signOut} />
       <nav className="editor-bar bar">
         <button onClick={handleSave}>Save</button>
-        <button>Delete</button>
+        <button onClick={handleDelete}>Delete</button>
         <button onClick={handlePublish}>
-          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> - 
+          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
           <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
         </button>
       </nav>

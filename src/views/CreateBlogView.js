@@ -1,21 +1,36 @@
 import { useState } from 'react';
 import MainBar from '../components/shared/MainBar';
 import OwnerEditorBar from '../components/shared/OwnerEditorBar';
-
+import { createBlog } from '../helpers/blogLambda';
+// // @TODO
+// import { createBlog as updateBlogDatabase } from '../helpers/blogDatabase';
 import '../styles/createBlogView.scss';
+// import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function CreateBlogView({signOut}) {
+
+function CreateBlogView({user, signOut}) {
   const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
-  // function handleClose() {
-  //   setTitle("");
-  // }
-
-  function handleCreate(event) {
+  async function handleCreate(event) {
     event.preventDefault();
-    if (title !== "") {
-      console.log("New Blog Coming Up :: ", title);
+    let uuid = crypto.randomUUID();
+    const _title = title === "" ? "Blog Title" : title;
+
+    
+    console.log(`New Blog Coming Up :: ${_title} :: ${uuid}`);
+    const data = {
+      id: uuid,
+      title: _title,
+      publishedDate: "",
+      published: false,
+      authorId: user.attributes.sub
     }
+
+    const response = await createBlog(data);
+    console.log(response);
+    navigate(`/e/${uuid}`);
   }
 
   return (
