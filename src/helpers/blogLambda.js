@@ -1,5 +1,4 @@
 import { API } from "aws-amplify";
-// import { Storage } from "aws-amplify";
 import { getBlog as getBlogStorage } from './blogStorage';
 import { createBlog as createBlogStorage } from './blogStorage';
 import { updateBlog as updateBlogStorage } from './blogStorage';
@@ -26,7 +25,7 @@ async function createBlog({ title, authorId }) {
     };
     const databaseResponse = await API.post(apiName, path, myInit);
     const blogId = databaseResponse.blogId;
-    console.log(blogId);
+    // console.log(blogId);
 
     // Step 2. Send blog textContent data to S3
     const file = `<h1>${title}</h1>`;
@@ -39,6 +38,7 @@ async function createBlog({ title, authorId }) {
 
 // READ
 async function getBlog({ blogId }) {
+    // console.log(blogId);
     if (blogId === undefined) {
         return "ID must be defined";
     } else {

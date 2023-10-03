@@ -12,8 +12,6 @@ import 'react-quill/dist/quill.snow.css';
 
 import { getBlog, updateBlog, deleteBlog, sanitizeText } from '../helpers/blogLambda';
 
-// import { useAuthenticator } from '@aws-amplify/ui-react';
-
 function EditBlogView({ user, signOut }) {
   const [blog, setBlog] = useState({});
   const [blogContent, setBlogContent] = useState('');
@@ -30,32 +28,10 @@ function EditBlogView({ user, signOut }) {
     // console.log("userId : ", userId);
     async function fetchData() {
       const everything = await getBlog({ blogId: id });
+      // console.log(everything);
       setBlog(everything);
       setBlogContent(`<h1>${everything.title}</h1>${everything.body}`);
       return;
-      // // const savedBlog = await getBlogStorage({ id });
-      // console.log("everything");
-      // console.log(everything);
-      // const savedBlogDetails = await getBlogDatabase({ id });
-      // // console.log(savedBlogDetails);
-      // const { title, body } = sanitizeText(savedBlog);
-      // const { publishedDate, published, author } = savedBlogDetails
-      // const _data = {
-      //   id,
-      //   title,
-      //   textContent: body,
-      //   publishedDate,
-      //   published,
-      //   author
-      // }
-      // // const _data = {
-      // //   id: "1eaadf37bd4e4f1097d122983daa56ca",
-      // //   title: "Blog 1 Heading",
-      // //   textContent: "<p>this is some text</p><p>this is a quote</p><h2>This is another heading</h2><p><br></p><p>End</p>",
-      // //   publishedDate: "",
-      // //   published: false,
-      // //   author: "A B Creely"
-      // // }
     }
     fetchData();
   }, [id]);
