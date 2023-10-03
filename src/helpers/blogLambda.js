@@ -10,15 +10,18 @@ const apiName = 'blogApi';
 // CREATE
 async function createBlog({ title, authorId }) {
     // Step 0. Sanitize params
+    // @TODO - ?
 
     // Step 1. Send basic data to Dynamo DB through API Gateway (blogApi) and Lambda (blogLamdba)
     let path = "/blog/create";
     const myInit = {
         body: {
-            blogId: "1234", // STUB VALUE IS REPLACED IN THE BACKEND
+            blogId: "STUB", // STUB VALUE IS REPLACED IN THE BACKEND
             userId: "12",
             authorId,
-            title
+            title,
+            published: false,
+            publishedDate: null
         }
     };
     const databaseResponse = await API.post(apiName, path, myInit);
@@ -50,27 +53,18 @@ async function getBlog({ blogId }) {
         const data = response
         // console.log(data);
 
-        // @TODO
-        // Step 2. exchange authorId for author username, via new request through API Gateway (blogApi) and Lambda (bloglyWebUsersLambda)
-        // path = `/users/${data.authorId}/object/${data.authorId}`;
-        // path = `/users/${data.authorId}`;
-        // const userNameLookup = await API.get(apiName, path, myInit);
-        const userNameLookup = "TEST NAME STRING";
-        console.log(userNameLookup);
-
-        // Step 3. Get blog textContent data from S3
-        const textContent = await getBlogStorage({ blogId: blogId });
-        console.log(textContent);
+        // Step 2. Get blog textContent data from S3
+        const textContent = await getBlogStorage({ blogId });
+        // console.log(textContent);
         const { title, body } = sanitizeText(textContent);
 
-        // Step 4. Massage return data object
-        // delete data.authorId;
-        data.author = userNameLookup;
+        // Step 3. Massage return data object
+        delete data.authorId;
         data.title = title;
         data.body = body;
-        console.log(data);
+        // console.log(data);
 
-        // Step 5. return clean data object
+        // Step 4. return clean data object
         return data;
     }
 }
@@ -134,4 +128,4 @@ function sanitizeText(content) {
     // const { title, body } = sanitizeText(textContent);
 }
 
-export { createBlog, getBlog, updateBlog, deleteBlog }
+export { createBlog, getBlog, updateBlog, deleteBlog, sanitizeText }

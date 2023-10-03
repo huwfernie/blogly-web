@@ -146,6 +146,14 @@
           "Version": "2012-10-17",
           "Statement": [
             {
+              "Sid": "Cognito",
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:ListUsers"
+              ],
+              "Resource": "arn:aws:cognito-idp:eu-west-2:482668114863:userpool/eu-west-2_mtGeF4Ozt"
+            },
+            {
               "Effect": "Allow",
               "Action": [
                 "logs:CreateLogGroup",

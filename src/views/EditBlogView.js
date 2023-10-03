@@ -3,15 +3,14 @@ import { useRef } from "react";
 import MainBar from '../components/shared/MainBar';
 import Spinner from '../components/shared/spinner';
 import Footer from '../components/shared/Footer';
-import { useParams } from 'react-router-dom';
-
+import { useParams, useNavigate } from 'react-router-dom';
 
 import '../styles/editBlogView.scss';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getBlog, updateBlog, deleteBlog } from '../helpers/blogLambda';
+import { getBlog, updateBlog, deleteBlog, sanitizeText } from '../helpers/blogLambda';
 
 // import { useAuthenticator } from '@aws-amplify/ui-react';
 
@@ -19,18 +18,21 @@ function EditBlogView({ user, signOut }) {
   const [blog, setBlog] = useState({});
   const [blogContent, setBlogContent] = useState('');
   const [spinner, setSpinner] = useState(false);
+  const navigate = useNavigate();
 
   const userId = user.attributes.sub;
-  // const { user } = useAuthenticator((context) => [context.user]);
   // if user id !=== author id then redirect to blog show page?
   
   let { id } = useParams();
   const quillElement = useRef();
   
   useEffect(() => {
-    console.log("userId : ", userId);
+    // console.log("userId : ", userId);
     async function fetchData() {
       const everything = await getBlog({ blogId: id });
+      setBlog(everything);
+      setBlogContent(`<h1>${everything.title}</h1>${everything.body}`);
+      return;
       // // const savedBlog = await getBlogStorage({ id });
       // console.log("everything");
       // console.log(everything);
@@ -54,26 +56,11 @@ function EditBlogView({ user, signOut }) {
       // //   published: false,
       // //   author: "A B Creely"
       // // }
-      setBlog(everything);
-      setBlogContent(`<h1>${everything.title}</h1>${everything.body}`);
-      return;
     }
     fetchData();
   }, [id]);
 
   // @TODO - prompt if you have changes and navigate away from the page
-
-  function sanitizeText(content) {
-    // heading should always be an H1
-    content = content.replace(/<(.*?)>(.*?)<(.*?)>/, '<h1>$2</h1>');
-    // title is the contents of the H1
-    const title = content.replace(/<h1>(.*?)<\/h1>(.*)/, '$1');
-    // body is everything after the h1
-    const body = content.replace(/(.*?)<\/h1>/, '');
-    // console.log("Title = ", title);
-    // console.log("Body = ", body);
-    return { title, body };
-  }
 
   function handleChange(content, delta, source, editor) {
     setBlogContent(content);
@@ -107,8 +94,9 @@ function EditBlogView({ user, signOut }) {
 
   async function handleDelete() {
     setSpinner(true);
-    await deleteBlog({ blogId: id })
+    await deleteBlog({ blogId: id });
     setSpinner(false);
+    navigate('/u');
     return;
   }
 
