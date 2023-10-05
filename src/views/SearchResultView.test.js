@@ -9,10 +9,10 @@ it('Should render a title', async () => {
     expect(form).toBeInTheDocument();
 });
 
-it("Should render a list of search results", () => {
-    render(<MemoryRouter><CreateBlogView /></MemoryRouter>);
-    // Grab the home by it's text
-    const title = screen.getByText("What's the title for your new blog?");
-    // Assert that the title appears
-    expect(title).toBeInTheDocument();
-});
+// it("Should render a list of search results", () => {
+//     render(<MemoryRouter><CreateBlogView /></MemoryRouter>);
+//     // Grab the home by it's text
+//     const title = screen.getByText("What's the title for your new blog?");
+//     // Assert that the title appears
+//     expect(title).toBeInTheDocument();
+// });

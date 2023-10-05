@@ -1,46 +1,22 @@
 import { useState, useEffect } from 'react';
 import MainBar from '../components/shared/MainBar';
 import { Link } from 'react-router-dom';
-// import { useAuthenticator } from '@aws-amplify/ui-react';
+import { getBlogsByAuthor } from '../helpers/blogLambda';
 
 import '../styles/userView.scss';
 
 function UserView({user, signOut}) {
-  const [userData, setUserData] = useState({ blogs: null, user: null });
-  // const { user } = useAuthenticator((context) => [context.user]);
   // console.log(user);
-
-
+  const [blogData, setBlogData] = useState([]);
+  const authorId = user.attributes.sub || "7642d2b4-1081-70ce-f9cd-54f2636a48ad";
+  
   useEffect(() => {
-    async function fetchData() {
-      const _data = {
-        user: {
-          attributes: {
-            sub: "007df37bd4e4f1097d122983daa56ca",
-            preferred_username: "A B Creely",
-            email: "test@test.com"
-          }
-        },
-        blogs: [
-          {
-            id: "1eaadf37bd4e4f1097d122983daa56ca",
-            title: "blog_1",
-            publishedDate: "10/11/2011",
-            favorite: 21
-          },
-          {
-            id: "2eaadf37bd4e4f1097d122983daa56ca",
-            title: "blog_2",
-            publishedDate: "11/11/2011",
-            favorite: 12
-          }
-        ]
-      }
-      setUserData(_data);
-      return;
+    async function fetchBlogData() {
+      const data = await getBlogsByAuthor({ authorId });
+      setBlogData(data);
     }
-    fetchData();
-  }, []);
+    fetchBlogData();
+  }, [authorId]);
 
   function BlogList({ data }) {
     if (data === null) {
@@ -54,10 +30,10 @@ function UserView({user, signOut}) {
               data.map((blog, index) => {
                 return (
                   <li className="blog" key={index}>
-                    <div><Link to={`/b/${blog.id}`}><h3 className='title'>{blog.title}</h3></Link></div>
+                    <div><Link to={`/b/${blog.blogId}`}><h3 className='title'>{blog.title}</h3></Link></div>
                     <div>
                       <span>{blog.publishedDate}</span> 
-                      <span><Link to={`/e/${blog.id}`}>Edit</Link></span>
+                      <span><Link to={`/e/${blog.blogId}`}>Edit</Link></span>
                     </div>
                   </li>
                 )
@@ -69,14 +45,14 @@ function UserView({user, signOut}) {
     }
   }
 
-  function UserData() {
+  function UserData({ data }) {
     try {
       return (
         <div className="user-data-wrapper">
           <h2>Account settings</h2>
-          <div><span>ID : </span>{user.attributes.sub}</div>
-          <div><span>User Name : </span>{user.attributes.preferred_username}</div>
-          <div><span>Registered Email : </span>{user.attributes.email}</div>
+          <div><span>ID : </span>{data.attributes.sub}</div>
+          <div><span>User Name : </span>{data.attributes.name}</div>
+          <div><span>Registered Email : </span>{data.attributes.email}</div>
         </div>
       );
     } catch (error) {
@@ -91,8 +67,8 @@ function UserView({user, signOut}) {
         <div className="user-content content">
           <h1 className="headline">User Account Page</h1>
           <div className="grid">
-            <BlogList data={userData.blogs} />
-            <UserData />
+            <BlogList data={blogData} />
+            <UserData data={user} />
           </div>
         </div>
       </section>

@@ -1,74 +1,79 @@
 import React from 'react';
 import UserView from './UserView';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { testUser, signOut } from '../testing';
 
-const user = {
-    attributes: {
-        sub: "007df37bd4e4f1097d122983daa56ca",
-        preferred_username: "A B Creely",
-        email: "test@test.com"
-    }
-};
+jest.mock("../helpers/blogLambda");
+
+async function renderBlog() {
+    return await act(async () => {
+        render(
+            <MemoryRouter>
+                <UserView user={testUser} signOut={signOut} />
+            </MemoryRouter>
+        );
+    });
+}
 
 describe('Parent Component', () => {
-    it('renders Child component - main bar', () => {
-        render(<MemoryRouter><UserView /></MemoryRouter>);
+    it('renders Child component - main bar', async () => {
+        await renderBlog();
         const child = screen.queryByTestId('main-bar');
         expect(child).not.toBe(null);
     });
 });
 
 describe('User View Component', () => {
-    it('renders a list of blogs heading', () => {
-        render(<MemoryRouter><UserView /></MemoryRouter>);
+    it('renders a list of blogs heading', async () => {
+        await renderBlog();
         const blogListTitle = screen.getByText('Your Blogs');
         expect(blogListTitle).toBeInTheDocument();
     });
-    it('renders user account settings heading', () => {
-        render(<MemoryRouter><UserView user={user} /></MemoryRouter>);
+    it('renders user account settings heading', async () => {
+        await renderBlog();
         const blogListTitle = screen.getByText('Account settings');
         expect(blogListTitle).toBeInTheDocument();
     });
     it('renders user id', async () => {
-        render(<MemoryRouter><UserView user={user} /></MemoryRouter>);
-        const blogListTitle = await screen.findByText("007df37bd4e4f1097d122983daa56ca");
+        await renderBlog();
+        const blogListTitle = screen.getByText('1234');
         expect(blogListTitle).toBeInTheDocument();
     });
     it('renders user name', async () => {
-        render(<MemoryRouter><UserView user={user} /></MemoryRouter>);
-        const blogListTitle = await screen.findByText("A B Creely");
+        await renderBlog();
+        const blogListTitle = screen.getByText('A B Creely');
         expect(blogListTitle).toBeInTheDocument();
     });
     it('renders user email', async () => {
-        render(<MemoryRouter><UserView user={user} /></MemoryRouter>);
-        const blogListTitle = await screen.findByText("test@test.com");
+        await renderBlog();
+        const blogListTitle = screen.getByText('test@test.com');
         expect(blogListTitle).toBeInTheDocument();
     });
 });
 
 describe('User View Component - render blog one', () => {
     it('renders blog name', async () => {
-        render(<MemoryRouter><UserView /></MemoryRouter>);
-        const blogListTitle = await screen.findByText('blog_1');
+        await renderBlog();
+        const blogListTitle = screen.getByText('Test Blog One');
         expect(blogListTitle).toBeInTheDocument();
     });
     it('renders blog published date', async () => {
-        render(<MemoryRouter><UserView /></MemoryRouter>);
-        const blogListTitle = await screen.findByText('10/11/2011');
+        await renderBlog();
+        const blogListTitle = screen.getByText('10/11/2011');
         expect(blogListTitle).toBeInTheDocument();
     });
 });
 
 describe('User View Component - render blog two', () => {
     it('renders blog name', async () => {
-        render(<MemoryRouter><UserView /></MemoryRouter>);
-        const blogListTitle = await screen.findByText('blog_2');
+        await renderBlog();
+        const blogListTitle = screen.getByText('Test Blog Two');
         expect(blogListTitle).toBeInTheDocument();
     });
     it('renders blog published date', async () => {
-        render(<MemoryRouter><UserView /></MemoryRouter>);
-        const blogListTitle = await screen.findByText('11/11/2011');
+        await renderBlog();
+        const blogListTitle = screen.getByText('11/11/2011');
         expect(blogListTitle).toBeInTheDocument();
     });
 });

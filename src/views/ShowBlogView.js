@@ -1,61 +1,69 @@
 import { useEffect, useState, useRef } from 'react';
+import * as DOMPurify from 'dompurify';
+import { useParams } from 'react-router-dom';
+
 import MainBar from '../components/shared/MainBar';
 import OwnerEditorBar from '../components/shared/OwnerEditorBar';
 import Footer from '../components/shared/Footer';
-import '../styles/showBlogView.scss';
-import { useParams } from 'react-router-dom';
-// import { useAuthenticator } from '@aws-amplify/ui-react';
 
-function BlogShowView({user, signOut}) {
-  const { id } = useParams();
-  // const { user } = useAuthenticator((context) => [context.user]);
-  // console.log(user);
-  // if user.id === author.id then render editor bar
+import { getBlog } from '../helpers/blogLambda';
+
+import '../styles/showBlogView.scss';
+
+function BlogShowView({ user, signOut }) {
+  const { blogId } = useParams();
 
   const initialBlog = {
-    id: "",
+    blogId: "",
+    userId: "",
     title: "",
-    textContent: "",
+    author: "",
+    body: "",
     publishedDate: "",
     published: false,
-    author: ""
-  }
+    authorId: ""
+  };
+
+  const blogElement = useRef();
   const [blog, setBlog] = useState(initialBlog);
-  const reef = useRef();
+  const [showEditorBar, setShowEditorBar] = useState(false);
 
   useEffect(() => {
-    async function fetchData(id) {
-      // const data = await getFiveRecentBlogs();
-      const _data = {
-        id: "1eaadf37bd4e4f1097d122983daa56ca",
-        title: "Blog 1 Heading",
-        textContent: "<p>this is some text</p><p>this is a quote</p><h2>This is another heading</h2><p><br></p><p>End</p>",
-        publishedDate: "10/11/12",
-        published: false,
-        author: "A B Creely"
+    async function init() {
+      const blog = await getBlog({ blogId });
+      if (blog !== null) {
+        setBlog(blog);
       }
-      setBlog(_data);
-      return;
     }
-    fetchData(id);
-  }, [id]);
+    init();
+  }, [blogId]);
 
   useEffect(() => {
-    if (reef.current !== undefined) {
-      reef.current.innerHTML = blog.textContent;
+    try {
+      if (blog.authorId === user.id) {
+        setShowEditorBar(true);
+      }
+    } catch (error) {
+      // null
+    }
+  }, [blog, user]);
+
+  useEffect(() => {
+    if (blogElement.current !== undefined) {
+      blogElement.current.innerHTML = DOMPurify.sanitize(blog.body);
     }
   }, [blog]);
 
   try {
     return (
       <div className="show-blog-view view" data-testid="showBlogView">
-      <MainBar signOut={signOut} />
-        <OwnerEditorBar owner={true} blogId={blog.id} />
+        <MainBar signOut={signOut} />
+        <OwnerEditorBar showEditorBar={showEditorBar} blogId={blogId} />
         <section className="main-section section">
           <div className="blog-content content">
             <h1 className="headline">{blog.title}</h1>
             <p className="blog-info">By : <span>{blog.author}</span>, published on <span>{blog.publishedDate}</span></p>
-            <div ref={reef}></div>
+            <div ref={blogElement}></div>
           </div>
         </section>
         <Footer />

@@ -16,11 +16,15 @@
       "function": {
         "blogLambda": {
           "deploymentBucketName": "amplify-bloglyweb-dev-125048-deployment",
-          "s3Key": "amplify-builds/blogLambda-6a585563594872576476-build.zip"
+          "s3Key": "amplify-builds/blogLambda-46325936484a712f7164-build.zip"
         },
         "blogUsersLambda": {
           "deploymentBucketName": "amplify-bloglyweb-dev-125048-deployment",
           "s3Key": "amplify-builds/blogUsersLambda-74664b62564f3368324d-build.zip"
+        },
+        "bloglyWebAuthorLambda": {
+          "deploymentBucketName": "amplify-bloglyweb-dev-125048-deployment",
+          "s3Key": "amplify-builds/bloglyWebAuthorLambda-6c6f5157654864776f51-build.zip"
         }
       },
       "storage": {

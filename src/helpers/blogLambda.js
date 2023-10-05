@@ -38,8 +38,45 @@ async function createBlog({ title, authorId }) {
 
 // READ
 async function getBlog({ blogId }) {
-    // console.log(blogId);
-    if (blogId === undefined) {
+    // console.log("getBlog :: ", blogId);
+    try {
+        if (blogId === undefined) {
+            return "ID must be defined -- getBlog --";
+        } else {
+            const myInit = {
+                response: false, // OPTIONAL (return the entire Axios response object instead of only response.data)
+                queryStringParameters: {}
+            };
+
+            // Step 1. Get basic data from Dynamo DB through API Gateway (blogApi) and Lambda (blogLamdba)
+            let path = `/blog/${blogId}/object/${blogId}/12`;
+            const response = await API.get(apiName, path, myInit);
+            const data = response
+            // console.log(data);
+
+            // Step 2. Get blog textContent data from S3
+            const textContent = await getBlogStorage({ blogId });
+            // console.log(textContent);
+            const { title, body } = sanitizeText(textContent);
+
+            // Step 3. Massage return data object
+            delete data.authorId;
+            data.title = title;
+            data.body = body;
+            // console.log(data);
+
+            // Step 4. return clean data object
+            return data;
+        }
+    } catch (error) {
+        return null;
+    }
+}
+
+// LIST ALL BLOGS BY AUTHOR (authorId)
+async function getBlogsByAuthor({ authorId }) {
+    // console.log("getBlogsByAuthor :: ", authorId);
+    if (authorId === undefined) {
         return "ID must be defined";
     } else {
         const myInit = {
@@ -47,32 +84,17 @@ async function getBlog({ blogId }) {
             queryStringParameters: {}
         };
 
-        // Step 1. Get basic data from Dynamo DB through API Gateway (blogApi) and Lambda (blogLamdba)
-        let path = `/blog/${blogId}/object/${blogId}/12`;
+        let path = `/author/${authorId}`;
         const response = await API.get(apiName, path, myInit);
-        const data = response
-        // console.log(data);
 
-        // Step 2. Get blog textContent data from S3
-        const textContent = await getBlogStorage({ blogId });
-        // console.log(textContent);
-        const { title, body } = sanitizeText(textContent);
-
-        // Step 3. Massage return data object
-        delete data.authorId;
-        data.title = title;
-        data.body = body;
-        // console.log(data);
-
-        // Step 4. return clean data object
-        return data;
+        return response;
     }
 }
 
 // UPDATE
-async function updateBlog({ blogId, title, authorId, publishedDate, published, textContent }) {
+async function updateBlog({ blogId, title, authorId, publishedDate, published, body }) {
     // Step 1. Send basic data to Dynamo DB through API Gateway (blogApi) and Lambda (blogLamdba)
-    let path = `/blog/${blogId}/`;
+    let path = `/blog/create/`;
     const myInit = {
         body: {
             blogId,
@@ -83,14 +105,16 @@ async function updateBlog({ blogId, title, authorId, publishedDate, published, t
             published
         }
     };
-    const databaseResponse = await API.put(apiName, path, myInit);
-    console.log(databaseResponse);
+    await API.put(apiName, path, myInit);
+    // const databaseResponse = await API.put(apiName, path, myInit);
+    // console.log(databaseResponse);
 
     // // Step 2. Send blog textContent data to S3
-    const file = `<h1>${title}</h1>${textContent}`;
-    console.log(file);
-    const s3Response = await updateBlogStorage({ blogId, file });
-    console.log(s3Response);
+    const file = `<h1>${title}</h1>${body}`;
+    // console.log(file);
+    await updateBlogStorage({ blogId, file });
+    // const s3Response = await updateBlogStorage({ blogId, file });
+    // console.log(s3Response);
 
     // Step 3. Finish
     return;
@@ -98,17 +122,18 @@ async function updateBlog({ blogId, title, authorId, publishedDate, published, t
 
 // DELETE
 async function deleteBlog({ blogId, userId = "12" }) {
-    console.log('Delete ', blogId, userId);
+    // console.log('Delete ', blogId, userId);
     // Step 1. Delete basic data in Dynamo DB through API Gateway (blogApi) and Lambda (blogLamdba)
     let path = `/blog/${blogId}/object/${blogId}/${userId}`;
     const myInit = {};
-    const databaseResponse = await API.del(apiName, path, myInit);
-    console.log(databaseResponse);
-
+    await API.del(apiName, path, myInit);
+    // const databaseResponse = await API.del(apiName, path, myInit);
+    // console.log(databaseResponse);
 
     // Step 2. Delete blog data from S3
-    const s3Response = await deleteBlogStorage({ blogId });
-    console.log(s3Response);
+    await deleteBlogStorage({ blogId });
+    // const s3Response = await deleteBlogStorage({ blogId });
+    // console.log(s3Response);
 
     // Step 3. Finish
     return;
@@ -128,4 +153,4 @@ function sanitizeText(content) {
     // const { title, body } = sanitizeText(textContent);
 }
 
-export { createBlog, getBlog, updateBlog, deleteBlog, sanitizeText }
+export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, sanitizeText }

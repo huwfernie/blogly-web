@@ -17,6 +17,14 @@
           ],
           "category": "function",
           "resourceName": "blogUsersLambda"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "bloglyWebAuthorLambda"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -76,6 +84,25 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "bloglyWebAuthorLambda": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "blogTable"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -108,6 +135,22 @@
         {
           "category": "function",
           "resourceName": "blogUsersLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_bloglyWebAuthorLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bloglyWebAuthorLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_bloglyWebAuthorLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bloglyWebAuthorLambda"
         }
       ]
     }

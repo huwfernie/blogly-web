@@ -1,19 +1,43 @@
 // file: helpers/__mocks__/blogLambda.js
 
-// Create a Jest mock function with the same name as the function we're mocking
-const getBlog = jest.fn(({ blogId }) => {
-    //Return a resolved Promise with a mock response object
+async function getBlog({ blogId }) {
     const _blogId = blogId || "1eaadf37bd4e4f1097d122983daa56ca";
 
-    return Promise.resolve({
+    const dummyData = {
         author: "A B Creely",
         blogId: _blogId,
-        body: "BODY",
-        published: false,
-        publishedDate: null,
+        body: "<p>this is some body text</p>",
+        published: true,
+        publishedDate: "10/11/2012",
         title: "Blog 1 Heading",
         userId: "12"
-    });
-});
+    };
+ 
+    return Promise.resolve(dummyData);
+}
 
-export { getBlog };
+async function getBlogsByAuthor({ authorId }) {
+
+    const dummyData = [
+        {
+            authorId: authorId,
+            blogId: "1eaadf37bd4e4f1097d122983daa56ca",
+            userId: '12',
+            title: "Test Blog One",
+            published: true,
+            publishedDate: "10/11/2011"
+        },
+        {
+            authorId: authorId,
+            blogId: "2eaadf37bd4e4f1097d122983daa56ca",
+            userId: '12',
+            title: "Test Blog Two",
+            published: true,
+            publishedDate: "11/11/2011"
+        }
+    ];
+
+    return Promise.resolve(dummyData);
+}
+
+export { getBlog, getBlogsByAuthor };

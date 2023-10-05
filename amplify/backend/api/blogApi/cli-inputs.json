@@ -16,6 +16,16 @@
           "read"
         ]
       }
+    },
+    "/author/{id}": {
+      "name": "/author/{id}",
+      "lambdaFunction": "bloglyWebAuthorLambda",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
     }
   }
 }

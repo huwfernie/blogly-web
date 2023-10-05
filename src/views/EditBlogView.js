@@ -58,7 +58,7 @@ function EditBlogView({ user, signOut }) {
     const data = {
       blogId: id,
       title: title,
-      textContent: body,
+      body: body,
       publishedDate: blog.publishedDate,
       published: blog.published,
       authorId: userId
