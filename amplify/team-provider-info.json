@@ -24,7 +24,7 @@
         },
         "bloglyWebAuthorLambda": {
           "deploymentBucketName": "amplify-bloglyweb-dev-125048-deployment",
-          "s3Key": "amplify-builds/bloglyWebAuthorLambda-4574655849797530632b-build.zip"
+          "s3Key": "amplify-builds/bloglyWebAuthorLambda-78335168754c74386173-build.zip"
         }
       },
       "storage": {
