@@ -23,7 +23,8 @@
       "permissions": {
         "setting": "private",
         "auth": [
-          "read"
+          "read",
+          "update"
         ]
       }
     }

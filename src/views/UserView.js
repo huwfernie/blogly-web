@@ -13,7 +13,9 @@ function UserView({user, signOut}) {
   useEffect(() => {
     async function fetchBlogData() {
       const data = await getBlogsByAuthor({ authorId });
-      setBlogData(data);
+      if (data.success) {
+        setBlogData(data.body);
+      }
     }
     fetchBlogData();
   }, [authorId]);

@@ -10,31 +10,31 @@ import '../styles/editBlogView.scss';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { getBlog, updateBlog, deleteBlog, sanitizeText } from '../helpers/blogLambda';
+import { getBlog, updateBlog, deleteBlog, sanitizeText, publishUnpublishBlog } from '../helpers/blogLambda';
 
 function EditBlogView({ user, signOut }) {
-  const [blog, setBlog] = useState({});
+  const [blog, setBlog] = useState({published: false, title: ""});
   const [blogContent, setBlogContent] = useState('');
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
 
   const userId = user.attributes.sub;
-  // if user id !=== author id then redirect to blog show page?
+  // @TODO - if user id !=== author id then redirect to blog show page?
   
   let { id } = useParams();
   const quillElement = useRef();
   
   useEffect(() => {
-    // console.log("userId : ", userId);
     async function fetchData() {
-      const everything = await getBlog({ blogId: id });
-      // console.log(everything);
-      setBlog(everything);
-      setBlogContent(`<h1>${everything.title}</h1>${everything.body}`);
+      const data = await getBlog({ blogId: id, userId });
+      if (data.success === true) {
+        setBlog(data.body);
+        setBlogContent(`<h1>${data.body.title}</h1>${data.body.body}`);
+      }
       return;
     }
     fetchData();
-  }, [id]);
+  }, [id, userId]);
 
   // @TODO - prompt if you have changes and navigate away from the page
 
@@ -42,14 +42,23 @@ function EditBlogView({ user, signOut }) {
     setBlogContent(content);
   }
 
-  function handlePublish() {
-    const oldState = blog;
-    if (blog.published === false) {
-      var newState = { ...oldState, published: true, publishedDate: 'today' };
-    } else {
-      newState = { ...oldState, published: false, publishedDate: '' };
+  async function handlePublish() {
+    setSpinner(true);
+    const { title, body } = sanitizeText(blogContent);
+    let data = {
+      blogId: id,
+      title: title,
+      body: body,
+      published: blog.published,
+      authorId: userId
     }
-    setBlog(newState);
+    data = await publishUnpublishBlog(data);
+
+    if (data.success === true) {
+      setBlog(data.body);
+    }
+    setSpinner(false);
+    return;
   }
 
   async function handleSave() {
@@ -65,7 +74,7 @@ function EditBlogView({ user, signOut }) {
     }
     await updateBlog(data)
     setSpinner(false);
-    return data;
+    return;
   }
 
   async function handleDelete() {
@@ -83,7 +92,7 @@ function EditBlogView({ user, signOut }) {
         <button onClick={handleSave}>Save</button>
         <button onClick={handleDelete}>Delete</button>
         <button onClick={handlePublish}>
-          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
+          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> - 
           <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
         </button>
       </nav>

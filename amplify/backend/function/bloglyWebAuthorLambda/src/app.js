@@ -15,6 +15,8 @@ const express = require('express');
 const ddbClient = new DynamoDBClient({ region: process.env.TABLE_REGION });
 const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
 
+const sThreeMove = require('./sThree');
+
 let tableName = "blogTable";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
@@ -45,13 +47,61 @@ app.get("/author/:authorId", async function (req, res) {
         ':author_id': req.params.authorId
       }
     }
-    
+
     const data = await ddbDocClient.send(new QueryCommand(queryParams));
     res.json(data.Items);
   } catch (err) {
     res.statusCode = 500;
     res.json({ error: 'Could not load items: ' + err.message });
   }
+});
+
+// /********************************
+//  * HTTP Put method - PLACEHOLDER - MOVE A BLOG FROM PUBLIC TO PROTECTED AND BACK *
+//  ********************************/
+app.put("/author/:blogId", async function (req, res) {
+  try {
+    let progress = "__1,";
+    const blogId = req.params.blogId;
+    const userIdentityId = req.body.userIdentityId || "one";
+    const currentStatus = req.body.currentStatus || "one";
+
+    progress += "2,";
+    
+    /**
+     * If blog was private
+     *      move it from bloglyweb40a6XXX-dev / protected / ${userIdentityId} / blogId / blog.txt
+     *      ... to :: bloglyweb40a6XXX-dev / public / blogId / blog.txt
+    */
+   
+   if (currentStatus === "public") {
+      progress += "3a,";
+      const _old = `public/${blogId}`;
+      const _new = `protected/${userIdentityId}/${blogId}`;
+      sThreeMove(_old, _new);
+    } else if (currentStatus === "protected") {
+      progress += "3b,";
+      const _old = `protected/${userIdentityId}/${blogId}`;
+      const _new = `public/${blogId}`;
+      sThreeMove(_old, _new);
+    }
+    progress += "4";
+
+    const data = {
+      message: "hello",
+      blogId,
+      userIdentityId,
+      currentStatus,
+      progress
+    }
+    
+    res.json(data);
+  } catch (err) {
+    res.statusCode = 500;
+    res.json({ error: 'Could not load items: ' + err.message });
+  }
+
+
 });
 
 app.listen(3000, function () {

@@ -18,6 +18,7 @@ import '@aws-amplify/ui-react/styles.css';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { RequireAuth } from './components/RequireAuth';
 import { BypassAuth } from './components/BypassAuth';
+import OptionalAuth from './components/OptionalAuth';
 
 import {
   createBrowserRouter,
@@ -27,7 +28,6 @@ import {
 // @TODO - Production
 Amplify.configure(awsExports);
 // @TODO - END
-
 
 // @TODO development
 // Amplify.configure({
@@ -59,9 +59,9 @@ const router = createBrowserRouter([
   {
     path: "/b/:blogId",
     element:
-      <BypassAuth>
+      <OptionalAuth>
         <ShowBlogView />
-      </BypassAuth>,
+      </OptionalAuth>,
   },
   {
     path: "/e/:id",

@@ -15,17 +15,16 @@ function CreateBlogView({ user, signOut }) {
     const _title = title === "" ? "Blog Title" : title;
     const authorId = user.attributes.sub;
 
-    console.log(`New Blog Coming Up :: ${_title} :: ${authorId}`);
+    // console.log(`New Blog Coming Up :: ${_title} :: ${authorId}`);
     const data = {
       title: _title,
-      authorId,
-      publishedDate: "",
-      published: false
+      authorId
     }
 
     const response = await createBlog(data);
-    console.log(response);
-    navigate(`/e/${response}`);
+    if (response.success === true) {
+      navigate(`/e/${response.blogId}`);
+    }
   }
 
   return (

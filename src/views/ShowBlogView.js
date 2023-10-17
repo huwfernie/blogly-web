@@ -30,13 +30,20 @@ function BlogShowView({ user, signOut }) {
 
   useEffect(() => {
     async function init() {
-      const blog = await getBlog({ blogId });
-      if (blog !== null) {
-        setBlog(blog);
+      let userId;
+      if (user === undefined) {
+        userId = false;
+      } else {
+        userId = user.attributes.sub;
       }
+      const data = await getBlog({ blogId, userId });
+      if (data.success === true) {
+        setBlog(data.body);
+      }
+      return;
     }
     init();
-  }, [blogId]);
+  }, [blogId, user]);
 
   useEffect(() => {
     try {
@@ -62,7 +69,11 @@ function BlogShowView({ user, signOut }) {
         <section className="main-section section">
           <div className="blog-content content">
             <h1 className="headline">{blog.title}</h1>
-            <p className="blog-info">By : <span>{blog.author}</span>, published on <span>{blog.publishedDate}</span></p>
+            <p className="blog-info">
+              {blog.author !== "" && <span>By : {blog.author}</span>}
+              {blog.published === true && <span>, published on {blog.publishedDate}</span>}
+              {blog.published === false && <span>, Preview - this is not published yet</span>}
+            </p>
             <div ref={blogElement}></div>
           </div>
         </section>
