@@ -3,6 +3,7 @@ import { getBlog as getBlogStorage } from './blogStorage';
 import { createBlog as createBlogStorage } from './blogStorage';
 import { updateBlog as updateBlogStorage } from './blogStorage';
 import { deleteBlog as deleteBlogStorage } from './blogStorage';
+import { getFiveBlogs as getFiveBlogsStorage } from "./blogStorage";
 
 const apiName = 'blogApi';
 
@@ -283,6 +284,21 @@ async function deleteBlog({ blogId, userId = "12" }) {
     }
 }
 
+// READ FIVE
+async function getFiveBlogs() {
+    let blogs = await getFiveBlogsStorage();
+
+    blogs = await Promise.all(blogs.map(async(blogId) => {
+        let path = `/blog/${blogId}/object/${blogId}/12`;
+        const data = await API.get(apiName, path, { response: false, queryStringParameters: {} });
+        return {
+            id: blogId,
+            title: data.title
+        }
+    }));
+    return blogs;
+}
+
 // HELPERS
 function sanitizeText(content) {
     // heading should always be an H1
@@ -297,4 +313,4 @@ function sanitizeText(content) {
     // const { title, body } = sanitizeText(textContent);
 }
 
-export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, sanitizeText }
+export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, getFiveBlogs, sanitizeText }

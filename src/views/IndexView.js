@@ -1,46 +1,29 @@
 import { useEffect, useState } from 'react';
 import '../styles/index.scss';
 import { Link } from 'react-router-dom';
-// import { getFiveRecentBlogs } from '../helpers/Index';
+import { getFiveBlogs } from '../helpers/blogLambda';
 
 function Index({ user, signOut }) {
   const [searchValue, setSearchValue] = useState("");
   const [blogList, setBlogList] = useState([]);
-  if (user) {
-    console.log(user);
-  }
+  const [refresh, setRefresh] = useState(0);
+  // if (user) {
+  //   console.log(user);
+  // }
 
   useEffect(() => {
     async function fetchData() {
-      // @TODO
-      // const data = await getFiveRecentBlogs();
-      const _data = [
-        {
-          id: "1eaadf37bd4e4f1097d122983daa56ca",
-          title: "blog_1"
-        },
-        {
-          id: "2eaadf37bd4e4f1097d122983daa56ca",
-          title: "blog_2"
-        },
-        {
-          id: "3eaadf37bd4e4f1097d122983daa56ca",
-          title: "blog_3"
-        },
-        {
-          id: "4eaadf37bd4e4f1097d122983daa56ca",
-          title: "blog_4"
-        },
-        {
-          id: "5eaadf37bd4e4f1097d122983daa56ca",
-          title: "blog_5"
-        }
-      ]
-      setBlogList(_data);
+      const data = await getFiveBlogs();
+      setBlogList(data);
       return;
     }
     fetchData();
   }, []);
+
+  function handleSignOut() {
+    signOut();
+    setRefresh(refresh + 1);
+  }
 
 
   function handleSearchChange(event) {
@@ -69,22 +52,24 @@ function Index({ user, signOut }) {
     if (user === undefined) {
       return (
         <nav className="index-bar bar">
-          <span><Link to="/login">Sign Up</Link></span> or 
           <span><Link to="/login">Sign In</Link></span>
+          or
+          <span><Link to="/login">Sign Up</Link></span>
         </nav>
       )
     } else {
       return (
         <nav className="index-bar bar">
-          <span><Link to="/c">Create</Link></span> 
-          <span onClick={signOut}>Sign Out</span>
+          <span><Link to="/c">Create</Link></span>
+          <span onClick={handleSignOut}><Link to="#">Sign Out</Link></span>
+          <span><Link to="/u">My Account</Link></span>
         </nav>
       )
     }
   }
 
   return (
-    <div className="index-view" data-testid="index-view"> 
+    <div className="index-view" data-testid="index-view">
       <IndexBar />
       <section className="section">
         <div className="content">

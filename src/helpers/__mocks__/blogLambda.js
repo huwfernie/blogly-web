@@ -12,7 +12,7 @@ async function getBlog({ blogId }) {
         title: "Blog 1 Heading",
         userId: "12"
     };
- 
+
     return Promise.resolve(dummyData);
 }
 
@@ -40,4 +40,31 @@ async function getBlogsByAuthor({ authorId }) {
     return Promise.resolve(dummyData);
 }
 
-export { getBlog, getBlogsByAuthor };
+async function getFiveBlogs() {
+    const dummyData = [
+      {
+        id: "1eaadf37bd4e4f1097d122983daa56ca",
+        title: "blog_1"
+      },
+      {
+        id: "2eaadf37bd4e4f1097d122983daa56ca",
+        title: "blog_2"
+      },
+      {
+        id: "3eaadf37bd4e4f1097d122983daa56ca",
+        title: "blog_3"
+      },
+      {
+        id: "4eaadf37bd4e4f1097d122983daa56ca",
+        title: "blog_4"
+      },
+      {
+        id: "5eaadf37bd4e4f1097d122983daa56ca",
+        title: "blog_5"
+      }
+    ];
+
+    return Promise.resolve(dummyData);
+}
+
+export { getBlog, getBlogsByAuthor, getFiveBlogs };

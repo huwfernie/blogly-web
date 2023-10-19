@@ -54,11 +54,17 @@ async function deleteBlog({ blogId, level }) {
 
 // READ FIVE
 async function getFiveBlogs() {
-    let response = await Storage.list('blog/', {
-        level: 'protected',
-        pageSize: 5
-    });
-    return response;
+    try {
+        let response = await Storage.list('', {
+            level: 'public',
+            pageSize: 5
+        });
+        return response.results.map((el) => {
+            return el.key.replace("/blog.txt", "");
+        });
+    } catch (error) {
+        return [];
+    }
 }
 
 export { createBlog, getBlog, updateBlog, deleteBlog, getFiveBlogs }
