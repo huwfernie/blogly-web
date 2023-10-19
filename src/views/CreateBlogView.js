@@ -29,7 +29,7 @@ function CreateBlogView({ user, signOut }) {
 
   return (
     <div className="create-blog-view view">
-      <MainBar signOut={signOut} />
+      <MainBar user={user} signOut={signOut} />
       <OwnerEditorBar />
       <section className="main-section section">
         <div className="blog-content content">

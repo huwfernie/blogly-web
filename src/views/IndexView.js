@@ -6,10 +6,6 @@ import { getFiveBlogs } from '../helpers/blogLambda';
 function Index({ user, signOut }) {
   const [searchValue, setSearchValue] = useState("");
   const [blogList, setBlogList] = useState([]);
-  const [refresh, setRefresh] = useState(0);
-  // if (user) {
-  //   console.log(user);
-  // }
 
   useEffect(() => {
     async function fetchData() {
@@ -19,11 +15,6 @@ function Index({ user, signOut }) {
     }
     fetchData();
   }, []);
-
-  function handleSignOut() {
-    signOut();
-    setRefresh(refresh + 1);
-  }
 
 
   function handleSearchChange(event) {
@@ -61,7 +52,7 @@ function Index({ user, signOut }) {
       return (
         <nav className="index-bar bar">
           <span><Link to="/c">Create</Link></span>
-          <span onClick={handleSignOut}><Link to="#">Sign Out</Link></span>
+          <span onClick={signOut}><Link to="#">Sign Out</Link></span>
           <span><Link to="/u">My Account</Link></span>
         </nav>
       )

@@ -64,7 +64,7 @@ function UserView({user, signOut}) {
 
   return (
     <div className="user-view" data-testid="user-view">
-      <MainBar signOut={signOut} />
+      <MainBar user={user} signOut={signOut} />
       <section className="section">
         <div className="user-content content">
           <h1 className="headline">User Account Page</h1>

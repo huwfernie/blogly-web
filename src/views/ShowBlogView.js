@@ -64,7 +64,7 @@ function BlogShowView({ user, signOut }) {
   try {
     return (
       <div className="show-blog-view view" data-testid="showBlogView">
-        <MainBar signOut={signOut} />
+        <MainBar user={user} signOut={signOut} />
         <OwnerEditorBar showEditorBar={showEditorBar} blogId={blogId} />
         <section className="main-section section">
           <div className="blog-content content">

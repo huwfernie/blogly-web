@@ -87,7 +87,7 @@ function EditBlogView({ user, signOut }) {
 
   return (
     <div className="edit-blog-view view" data-testid="edit-blog-view">
-      <MainBar signOut={signOut} />
+      <MainBar user={user} signOut={signOut} />
       <nav className="editor-bar bar">
         <button onClick={handleSave}>Save</button>
         <button onClick={handleDelete}>Delete</button>
