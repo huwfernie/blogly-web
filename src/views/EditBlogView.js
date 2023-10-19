@@ -13,7 +13,7 @@ import 'react-quill/dist/quill.snow.css';
 import { getBlog, updateBlog, deleteBlog, sanitizeText, publishUnpublishBlog } from '../helpers/blogLambda';
 
 function EditBlogView({ user, signOut }) {
-  const [blog, setBlog] = useState({published: false, title: ""});
+  const [blog, setBlog] = useState({ published: false, title: "" });
   const [blogContent, setBlogContent] = useState('');
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
@@ -92,13 +92,29 @@ function EditBlogView({ user, signOut }) {
         <button onClick={handleSave}>Save</button>
         <button onClick={handleDelete}>Delete</button>
         <button onClick={handlePublish}>
-          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> - 
-          <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
+          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
+           <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
         </button>
       </nav>
       <section className="main-section section">
         <div className="blog-content content">
-          <ReactQuill ref={quillElement} theme="snow" value={blogContent} onChange={handleChange} data-testid="test" />
+          <ReactQuill
+            ref={quillElement}
+            theme="snow"
+            value={blogContent}
+            onChange={handleChange}
+            data-testid="test"
+            modules={{  
+              toolbar: {  
+                container: [
+                  [{ 'header': [1, 2, 3, false] }],
+                  ['bold', 'italic', 'underline', 'link', 'image'],
+                  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                  ['clean']
+                ]
+              }
+            }}
+          />
         </div>
         <Spinner show={spinner} />
       </section>
