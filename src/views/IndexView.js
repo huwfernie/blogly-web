@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../styles/index.scss';
 import IndexBar from '../components/shared/IndexBar';
 import { getFiveBlogs } from '../helpers/blogLambda';
+import SearchBar from '../components/shared/SearchBar';
 
 function Index({ user, signOut }) {
   const [searchValue, setSearchValue] = useState("");
@@ -48,10 +49,7 @@ function Index({ user, signOut }) {
           <div className="grid">
             <div className="">
               <h2>Explore</h2>
-              <form>
-                <input type="text" role="searchbox" placeholder='Search Here' value={searchValue} onChange={handleSearchChange}></input>
-                <input type="submit" onClick={handleSearch} value="Search"></input>
-              </form>
+              <SearchBar initialValue="" placeholder="Search Here" />
             </div>
             <div className="">
               <h2>Recently published</h2>

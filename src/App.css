@@ -76,7 +76,7 @@ code {
   flex: 1;
 }
 
-.quill p:has(img) {
+.quill p:has(img), .blog-content p:has(img) {
   display: flex;
   justify-content: center;
 }

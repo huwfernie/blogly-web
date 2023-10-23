@@ -7,6 +7,8 @@ import Footer from '../components/shared/Footer';
 
 import { getAllBlogs } from '../helpers/blogLambda';
 
+import '../styles/SearchResultView.scss';
+
 function SearchResultView({ user, signOut }) {
     let [searchParams, setSearchParams] = useSearchParams();
     const [blogs, setBlogs] = useState([]);
@@ -27,7 +29,7 @@ function SearchResultView({ user, signOut }) {
 
     useEffect(() => {
         // console.log(blogs);
-        if (blogs.length > 0) {
+        if (blogs.length > 0 && title !== null) {
             // Create search index
             const idx = lunr(function () {
                 this.field('title');
@@ -52,7 +54,7 @@ function SearchResultView({ user, signOut }) {
                 const _el = blogs.find((item) => {
                     return item.blogId === el.ref;
                 });
-                return <div key={index}>{_el.title} <Link to={`/b/${_el.blogId}`}>Go</Link> </div>
+                return <li key={index}>{_el.title} <Link to={`/b/${_el.blogId}`}>View</Link> </li>
             });
         } else {
             return <div>No Results</div>
@@ -64,12 +66,10 @@ function SearchResultView({ user, signOut }) {
             <div className="search-result-view view" data-testid="searchResultView">
                 <MainBar user={user} signOut={signOut} />
                 <section className="main-section section">
-                    <div className="search-results content">
-                        <h1 className="headline">Results for: {title}</h1>
+                    <div className="headline content">
+                        <h1 className="headline">Results for: "{title}"</h1>
                     </div>
-                </section>
-                <section className="main-section section">
-                    <ul className="search-results content">
+                    <ul className="results-list content">
                         <List />
                     </ul>
                 </section>
