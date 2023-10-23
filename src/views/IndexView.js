@@ -49,7 +49,7 @@ function Index({ user, signOut }) {
             <div className="">
               <h2>Explore</h2>
               <form>
-                <input type="text" role="searchbox" placeholder='Placeholder' value={searchValue} onChange={handleSearchChange}></input>
+                <input type="text" role="searchbox" placeholder='Search Here' value={searchValue} onChange={handleSearchChange}></input>
                 <input type="submit" onClick={handleSearch} value="Search"></input>
               </form>
             </div>

@@ -16,18 +16,6 @@ code {
   text-align: center;
 }
 
-.main-bar {
-  border-bottom: 1px solid grey;
-}
-
-.owner-editor-bar {
-  border-bottom: 1px solid grey;
-}
-
-.editor-bar {
-  border-bottom: 1px solid grey;
-}
-
 .bar {
   width: 100vw;
   padding: 5px 17px;
@@ -36,6 +24,20 @@ code {
   align-items: center;
   box-sizing: border-box;
   min-height: 41px;
+}
+
+.main-bar {
+  border-bottom: 1px solid grey;
+}
+
+.owner-editor-bar {
+  border-bottom: 1px solid grey;
+  text-align: center;
+  display: block;
+}
+
+.editor-bar {
+  border-bottom: 1px solid grey;
 }
 
 .index-bar {
@@ -63,13 +65,20 @@ code {
   flex: 1;
 }
 
-footer {
+.footer {
   border-top: 1px solid grey;
+  text-align: center;
+  display: block;
 }
 
 .quill {
   margin-bottom: 41.81px;
   flex: 1;
+}
+
+.quill p:has(img) {
+  display: flex;
+  justify-content: center;
 }
 
 .content {

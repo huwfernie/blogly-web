@@ -5,11 +5,11 @@ import { getBlogsByAuthor } from '../helpers/blogLambda';
 
 import '../styles/userView.scss';
 
-function UserView({user, signOut}) {
+function UserView({ user, signOut }) {
   // console.log(user);
   const [blogData, setBlogData] = useState([]);
   const authorId = user.attributes.sub || "7642d2b4-1081-70ce-f9cd-54f2636a48ad";
-  
+
   useEffect(() => {
     async function fetchBlogData() {
       const data = await getBlogsByAuthor({ authorId });
@@ -21,8 +21,13 @@ function UserView({user, signOut}) {
   }, [authorId]);
 
   function BlogList({ data }) {
-    if (data === null) {
-      return <div className="blog-list-wrapper">...loading data</div>;
+    if (data.length === 0) {
+      return (
+        <div className="blog-list-wrapper">
+          <h2>Your Blogs</h2>
+          <div className="blog-list-wrapper">...loading data</div>
+        </div>
+      );
     } else {
       return (
         <div className="blog-list-wrapper">
@@ -34,8 +39,9 @@ function UserView({user, signOut}) {
                   <li className="blog" key={index}>
                     <div><Link to={`/b/${blog.blogId}`}><h3 className='title'>{blog.title}</h3></Link></div>
                     <div>
-                      <span>{blog.publishedDate}</span> 
-                      <span><Link to={`/e/${blog.blogId}`}>Edit</Link></span>
+                      {blog.published === true && <span>{blog.publishedDate}</span>}
+                      {blog.published === false && <span>Not Public</span>}
+                       <span><Link to={`/e/${blog.blogId}`}>Edit</Link></span>
                     </div>
                   </li>
                 )

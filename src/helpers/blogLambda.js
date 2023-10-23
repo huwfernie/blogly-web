@@ -286,6 +286,7 @@ async function deleteBlog({ blogId, userId = "12" }) {
 
 // READ FIVE
 async function getFiveBlogs() {
+    // Get five random blog ids using the storage API
     let blogs = await getFiveBlogsStorage();
 
     blogs = await Promise.all(blogs.map(async(blogId) => {
@@ -297,6 +298,24 @@ async function getFiveBlogs() {
         }
     }));
     return blogs;
+}
+
+// READ ALL
+async function getAllBlogs() {
+    try {
+        // console.log('Delete ', blogId, userId);
+        // Step 1. Delete basic data in Dynamo DB through API Gateway (blogApi) and Lambda (blogLamdba)
+        let path = '/blog/list';
+
+        const myInit = {};
+        const results = await API.get(apiName, path, myInit);
+
+        // Step 3. Finish
+        return { success: true, data: results };
+    } catch (error) {
+        console.log("getAllBlogs - error", error);
+        return { success: false };
+    }
 }
 
 // HELPERS
@@ -313,4 +332,4 @@ function sanitizeText(content) {
     // const { title, body } = sanitizeText(textContent);
 }
 
-export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, getFiveBlogs, sanitizeText }
+export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, getFiveBlogs, getAllBlogs, sanitizeText }

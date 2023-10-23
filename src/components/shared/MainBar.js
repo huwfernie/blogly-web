@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 
 function MainBar({ user, signOut }) {
-  const [search, setSearch] = useState('');
+  let [searchParams, setSearchParams] = useSearchParams();
+  const title = searchParams.get('title');
+  const [search, setSearch] = useState(title || "");
+  const navigate = useNavigate();
 
   function handleSearch(event) {
     event.preventDefault();
-    console.log(search);
+    navigate(`/search?title=${search}`);
   }
 
   if (user === undefined) {

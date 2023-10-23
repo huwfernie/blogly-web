@@ -8,6 +8,7 @@ import EditBlogView from './views/EditBlogView';
 import CreateBlogView from './views/CreateBlogView';
 import UserView from './views/UserView';
 import LoginView from './views/LoginView';
+import SearchResultView from './views/SearchResultView';
 // import reportWebVitals from './reportWebVitals';
 
 import { Amplify } from 'aws-amplify';
@@ -83,6 +84,13 @@ const router = createBrowserRouter([
       <RequireAuth>
         <UserView />
       </RequireAuth>
+  },
+  {
+    path: "/search",
+    element:
+      <OptionalAuth>
+        <SearchResultView />
+      </OptionalAuth>
   },
   {
     path: "/login",

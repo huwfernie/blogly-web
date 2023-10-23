@@ -55,6 +55,47 @@ const convertUrlType = (param, type) => {
 }
 
 /********************************
+ * HTTP Get method for list all objects *
+ ********************************/
+
+app.get("/blog/list", function (req, res) {
+  console.log("/blog/list");
+  var condition = {}
+  condition[partitionKeyName] = {
+    ComparisonOperator: 'EQ'
+  }
+
+  if (userIdPresent && req.apiGateway) {
+    condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH];
+  } else {
+    try {
+      condition[partitionKeyName]['AttributeValueList'] = [convertUrlType(req.params[partitionKeyName], partitionKeyType)];
+    } catch (err) {
+      res.statusCode = 500;
+      res.json({ error: 'Wrong column type ' + err });
+    }
+  }
+
+  let queryParams = {
+    TableName: tableName,
+    AttributesToGet: ['blogId', 'title', 'published']
+  }
+    
+  dynamodb.scan(queryParams, function(err, data) {
+     if (err) {
+       res.statusCode = 500;
+       res.json({ error: 'Could not load items: ' + err });
+     }
+     else {
+       res.json(data.Items.filter((item) => {
+        return item.published === true;
+       }));
+     }
+  });
+});
+
+
+/********************************
  * HTTP Get method for list objects *
  ********************************/
 
