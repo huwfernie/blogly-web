@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getBlogsByAuthor } from '../helpers/blogLambda';
 
 import '../styles/userView.scss';
+import Footer from '../components/shared/Footer';
 
 function UserView({ user, signOut }) {
   // console.log(user);
@@ -69,7 +70,7 @@ function UserView({ user, signOut }) {
   }
 
   return (
-    <div className="user-view" data-testid="user-view">
+    <div className="user-view view" data-testid="user-view">
       <MainBar user={user} signOut={signOut} />
       <section className="section">
         <div className="user-content content">
@@ -80,6 +81,7 @@ function UserView({ user, signOut }) {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
