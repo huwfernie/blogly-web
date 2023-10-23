@@ -59,7 +59,6 @@ const convertUrlType = (param, type) => {
  ********************************/
 
 app.get("/blog/list", function (req, res) {
-  console.log("/blog/list");
   var condition = {}
   condition[partitionKeyName] = {
     ComparisonOperator: 'EQ'
