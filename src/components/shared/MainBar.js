@@ -25,7 +25,9 @@ function MainBar({ user, signOut }) {
           </form>
         </span>
         <span>
-          <span><Link to="/login">Sign In</Link></span> or <span><Link to="/login">Sign Up</Link></span>
+          <span><Link to="/login">Sign In</Link></span>
+          <span> | </span>
+          <span><Link to="/login">Sign Up</Link></span>
         </span>
       </nav>
     );
@@ -45,8 +47,11 @@ function MainBar({ user, signOut }) {
           </form>
         </span>
         <span><Link to="/c">Create</Link></span>
-        <span onClick={signOut}><Link to="#">Sign Out</Link></span>
-        <span><Link to="/u">My Account</Link></span>
+        <span>
+          <span onClick={signOut}><Link to="#">Sign Out</Link></span>
+          <span> | </span>
+          <span><Link to="/u">My Account</Link></span>
+        </span>
       </nav>
     );
   }
