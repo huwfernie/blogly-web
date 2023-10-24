@@ -319,8 +319,9 @@ async function getAllBlogs() {
 }
 
 // HELPERS
+// const { title, body } = sanitizeText(textContent);
 function sanitizeText(content) {
-    // heading should always be an H1
+    // frist line should always be an H1
     content = content.replace(/<(.*?)>(.*?)<(.*?)>/, '<h1>$2</h1>');
     // title is the contents of the H1
     const title = content.replace(/<h1>(.*?)<\/h1>(.*)/, '$1');
@@ -329,7 +330,6 @@ function sanitizeText(content) {
     // console.log("Title = ", title);
     // console.log("Body = ", body);
     return { title, body };
-    // const { title, body } = sanitizeText(textContent);
 }
 
 export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, getFiveBlogs, getAllBlogs, sanitizeText }

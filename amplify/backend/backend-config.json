@@ -105,6 +105,56 @@
       "service": "Lambda"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_blogLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "blogLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_blogLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "blogLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_blogUsersLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "blogUsersLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_blogUsersLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "blogUsersLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_bloglyWebAuthorLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bloglyWebAuthorLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_bloglyWebAuthorLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bloglyWebAuthorLambda"
+        }
+      ]
+    }
+  },
   "storage": {
     "blogStorage": {
       "dependsOn": [],

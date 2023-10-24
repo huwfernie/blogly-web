@@ -13,17 +13,17 @@ import 'react-quill/dist/quill.snow.css';
 import { getBlog, updateBlog, deleteBlog, sanitizeText, publishUnpublishBlog } from '../helpers/blogLambda';
 
 function EditBlogView({ user, signOut }) {
-  const [blog, setBlog] = useState({ published: false, title: "" });
+  const [blog, setBlog] = useState({ published: false, title: '' });
   const [blogContent, setBlogContent] = useState('');
-  const [spinner, setSpinner] = useState(false);
+  const [spinner, setSpinner] = useState({ show: false, value: '' });
   const navigate = useNavigate();
 
   const userId = user.attributes.sub;
   // @TODO - if user id !=== author id then redirect to blog show page?
-  
+
   let { id } = useParams();
   const quillElement = useRef();
-  
+
   useEffect(() => {
     async function fetchData() {
       const data = await getBlog({ blogId: id, userId });
@@ -43,7 +43,7 @@ function EditBlogView({ user, signOut }) {
   }
 
   async function handlePublish() {
-    setSpinner(true);
+    setSpinner({ show: true, value: 'publishing' });
     const { title, body } = sanitizeText(blogContent);
     let data = {
       blogId: id,
@@ -57,12 +57,12 @@ function EditBlogView({ user, signOut }) {
     if (data.success === true) {
       setBlog(data.body);
     }
-    setSpinner(false);
+    setSpinner({ show: false, value: '' });
     return;
   }
 
   async function handleSave() {
-    setSpinner(true);
+    setSpinner({ show: true, value: 'saving' });
     const { title, body } = sanitizeText(blogContent);
     const data = {
       blogId: id,
@@ -73,14 +73,14 @@ function EditBlogView({ user, signOut }) {
       authorId: userId
     }
     await updateBlog(data)
-    setSpinner(false);
+    setSpinner({ show: false, value: '' });
     return;
   }
 
   async function handleDelete() {
-    setSpinner(true);
+    setSpinner({ show: true, value: 'deleting' });
     await deleteBlog({ blogId: id });
-    setSpinner(false);
+    setSpinner({ show: false, value: '' });
     navigate('/u');
     return;
   }
@@ -89,12 +89,14 @@ function EditBlogView({ user, signOut }) {
     <div className="edit-blog-view view" data-testid="edit-blog-view">
       <MainBar user={user} signOut={signOut} />
       <nav className="editor-bar bar">
+        <div className='display-content'>
         <button onClick={handleSave}>Save</button>
         <button onClick={handleDelete}>Delete</button>
         <button onClick={handlePublish}>
           <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
-           <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
+          <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
         </button>
+        </div>
       </nav>
       <section className="main-section section">
         <div className="blog-content content">
@@ -104,21 +106,26 @@ function EditBlogView({ user, signOut }) {
             value={blogContent}
             onChange={handleChange}
             data-testid="test"
-            modules={{  
-              toolbar: {  
+            modules={{
+              toolbar: {
                 container: [
-                  [{ 'header': [1, 2, 3, false] }],
+                  [{ 'header': [2, 3, false] }],
                   ['bold', 'italic', 'underline', 'link', 'image'],
                   [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                   ['clean']
                 ]
+              },
+              clipboard: {
+                matchVisual: false
               }
             }}
           />
         </div>
-        <Spinner show={spinner} />
+        <aside className="side-content">
+        </aside>
       </section>
       <Footer />
+      <Spinner show={spinner.show} value={spinner.value} />
     </div>
   );
 }

@@ -22,6 +22,10 @@
                 margin-bottom: 0.25em;
             }
         }
+
+        .blog span ~ span {
+            margin-left: 0.3em;
+        }
     }
 
     .user-data-wrapper {

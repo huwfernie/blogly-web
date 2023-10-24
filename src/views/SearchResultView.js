@@ -10,7 +10,7 @@ import { getAllBlogs } from '../helpers/blogLambda';
 import '../styles/SearchResultView.scss';
 
 function SearchResultView({ user, signOut }) {
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams] = useSearchParams();
     const [blogs, setBlogs] = useState([]);
     const [results, setResults] = useState([]);
 
@@ -35,7 +35,7 @@ function SearchResultView({ user, signOut }) {
                 this.field('title');
                 this.field('body')
 
-                blogs.map((blog) => {
+                blogs.forEach((blog) => {
                     this.add({
                         "title": blog.title,
                         "id": blog.blogId

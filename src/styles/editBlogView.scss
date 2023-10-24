@@ -1,3 +1,8 @@
+@mixin for-phone-only {
+    @media only screen and (min-width: 600px) {
+        @content;
+    }
+}
 
 .edit-blog-view {
     .editor-bar {
@@ -6,5 +11,21 @@
                 opacity: 0.3;
             }
         }
+    }
+
+    @include for-phone-only() {
+        .main-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+        }
+    }
+
+    .blog-content {
+        grid-area: 1 / 1 / 2 / 4;
+    }
+    
+    .side-content {
+        grid-area: 1 / 4 / 2 / 5;
     }
 }

@@ -5,7 +5,6 @@ import { getFiveBlogs } from '../helpers/blogLambda';
 import SearchBar from '../components/shared/SearchBar';
 
 function Index({ user, signOut }) {
-  const [searchValue, setSearchValue] = useState("");
   const [blogList, setBlogList] = useState([]);
 
   useEffect(() => {
@@ -16,15 +15,6 @@ function Index({ user, signOut }) {
     }
     fetchData();
   }, []);
-
-
-  function handleSearchChange(event) {
-    setSearchValue(event.target.value);
-  }
-
-  function handleSearch() {
-    console.log("Seaching :: ", searchValue);
-  }
 
   function BlogList() {
     return (

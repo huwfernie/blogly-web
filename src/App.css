@@ -19,11 +19,16 @@ code {
 .bar {
   width: 100vw;
   padding: 5px 17px;
+  box-sizing: border-box;
+  min-height: 41px;
+}
+
+.display-content {
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
-  min-height: 41px;
 }
 
 .main-bar {
@@ -40,7 +45,11 @@ code {
   border-bottom: 1px solid grey;
 }
 
-.index-bar {
+.editor-bar .display-content {
+  justify-content: space-around;
+}
+
+.index-bar .display-content {
   justify-content: flex-end;
 }
 
@@ -49,7 +58,6 @@ code {
   padding: 0 7%;
   box-sizing: border-box;
   flex: 1;
-
   display: flex;
 }
 
@@ -67,6 +75,9 @@ code {
 
 .footer {
   border-top: 1px solid grey;
+}
+
+.footer .display-content {
   text-align: center;
   display: block;
 }
@@ -76,7 +87,8 @@ code {
   flex: 1;
 }
 
-.quill p:has(img), .blog-content p:has(img) {
+.quill p:has(img),
+.blog-content p:has(img) {
   display: flex;
   justify-content: center;
 }

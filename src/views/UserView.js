@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Auth } from 'aws-amplify';
 import MainBar from '../components/shared/MainBar';
 import { Link } from 'react-router-dom';
 import { getBlogsByAuthor } from '../helpers/blogLambda';
@@ -42,7 +43,7 @@ function UserView({ user, signOut }) {
                     <div>
                       {blog.published === true && <span>{blog.publishedDate}</span>}
                       {blog.published === false && <span>Not Public</span>}
-                       <span><Link to={`/e/${blog.blogId}`}>Edit</Link></span>
+                      <span><Link to={`/e/${blog.blogId}`}>Edit</Link></span>
                     </div>
                   </li>
                 )
@@ -55,12 +56,30 @@ function UserView({ user, signOut }) {
   }
 
   function UserData({ data }) {
+    async function updateUserAttributes({ name }) {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(user, {
+          name: name
+        });
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+
+    function handleUpdateUser() {
+      const name = prompt('What is your new name', data.attributes.name);
+      if (name !== data.attributes.name && name !== "" && name !== undefined) {
+        updateUserAttributes({ name })
+      }
+    }
+
     try {
       return (
         <div className="user-data-wrapper">
           <h2>Account settings</h2>
           <div><span>ID : </span>{data.attributes.sub}</div>
-          <div><span>User Name : </span>{data.attributes.name}</div>
+          <div><span>User Name : </span>{data.attributes.name} <button onClick={handleUpdateUser}>Edit</button></div>
           <div><span>Registered Email : </span>{data.attributes.email}</div>
         </div>
       );
