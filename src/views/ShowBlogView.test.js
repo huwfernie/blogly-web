@@ -33,13 +33,13 @@ describe('Render a Blog', () => {
 
     it('Should render a blog author', async () => {
         await renderPage();
-        const blogTitle = screen.getByText('A B Creely');
+        const blogTitle = screen.getByText('By : A B Creely');
         expect(blogTitle).toBeInTheDocument();
     });
 
     it('Should render a blog publishing date', async () => {
         await renderPage();
-        const blogTitle = screen.getByText('10/11/2012');
+        const blogTitle = screen.getByText(', published on 10/11/2012');
         expect(blogTitle).toBeInTheDocument();
     });
 });

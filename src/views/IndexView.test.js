@@ -1,10 +1,16 @@
 import React from "react";
 import IndexView from "./IndexView";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { MemoryRouter } from 'react-router';
 
-function renderPage() {
-    return render(<MemoryRouter><IndexView /></MemoryRouter>);
+jest.mock("../helpers/blogLambda");
+
+async function renderPage() {
+    return await act(async () => {
+        render(
+            <MemoryRouter><IndexView /></MemoryRouter>
+        );
+    });
 }
 
 it("Should render a headline", async () => {
@@ -18,7 +24,9 @@ it("Should render a headline", async () => {
 it("Should render a search box", async () => {
     renderPage();
     // const searchBox = await screen.findByText("Placeholder");
-    const searchBox = await screen.findByRole('searchbox', { value: { text: "Placeholder" }});
+    // const searchBox = await screen.findByRole('searchbox', { value: { text: "Placeholder" } });
+    const searchBox = await screen.findByTestId('search-input');
+    
     // Assert that the search box appears
     expect(searchBox).toBeInTheDocument();
 });
@@ -26,7 +34,7 @@ it("Should render a search box", async () => {
 it("Should render a search button", async () => {
     renderPage();
     // const searchBox = await screen.findByText("Search");
-    let searchBox = await screen.findAllByRole('button', { value: { text: "Search" }});
+    let searchBox = await screen.findAllByRole('button', { value: { text: "Search" } });
     searchBox = searchBox[0];
     // Assert that the search box appears
     expect(searchBox).toBeInTheDocument();

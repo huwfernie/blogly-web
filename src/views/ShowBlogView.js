@@ -69,8 +69,8 @@ function BlogShowView({ user, signOut }) {
           <div className="blog-content content">
             <h1 className="headline">{blog.title}</h1>
             <p className="blog-info">
-              {blog.author !== "" && <span>By : {blog.author}</span>}
-              {blog.published === true && <span>, published on {blog.publishedDate}</span>}
+              {blog.author !== "" && <span>{`By : ${blog.author}`}</span>}
+              {blog.published === true && <span>{`, published on ${blog.publishedDate}`}</span>}
               {blog.published === false && <span>, Preview - this is not published yet</span>}
             </p>
             <div ref={blogElement}></div>

@@ -18,6 +18,7 @@ function SearchBar({ placeholder = "Search", initialValue = "" }) {
         placeholder={placeholder}
         value={searchterm}
         onChange={(event) => { setSearchterm(event.target.value) }}
+        data-testid="search-input"
       ></input>
       <button onClick={handleSearch}>Search</button>
     </form>
