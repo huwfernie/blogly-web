@@ -5,11 +5,13 @@
 }
 
 .edit-blog-view {
-    .editor-bar {
-        .option {
-            &.inactive {
-                opacity: 0.3;
-            }
+    .main-section {
+        max-width: 1100px;
+    }
+
+    .option {
+        &.inactive {
+            opacity: 0.3;
         }
     }
 
@@ -24,8 +26,31 @@
     .blog-content {
         grid-area: 1 / 1 / 2 / 4;
     }
-    
+
     .side-content {
         grid-area: 1 / 4 / 2 / 5;
+        padding-top: 125px;
+        border-left: 0.5px solid grey;
+        padding-left: 10px;
+
+        button {
+            display: block;
+            margin-top: 1em;
+
+            &:first-child {
+                margin-top: 0;
+                ;
+            }
+        }
+    }
+
+    .quill .ql-container.ql-snow {
+        .ql-editor {
+            h1 {
+                font-size: 64px;
+            }
+        }
+
+        font-size: 1em;
     }
 }

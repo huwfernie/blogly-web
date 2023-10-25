@@ -88,16 +88,6 @@ function EditBlogView({ user, signOut }) {
   return (
     <div className="edit-blog-view view" data-testid="edit-blog-view">
       <MainBar user={user} signOut={signOut} />
-      <nav className="editor-bar bar">
-        <div className='display-content'>
-        <button onClick={handleSave}>Save</button>
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={handlePublish}>
-          <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
-          <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
-        </button>
-        </div>
-      </nav>
       <section className="main-section section">
         <div className="blog-content content">
           <ReactQuill
@@ -122,6 +112,12 @@ function EditBlogView({ user, signOut }) {
           />
         </div>
         <aside className="side-content">
+          <button onClick={handleSave}>Save</button>
+          <button onClick={handleDelete}>Delete</button>
+          <button onClick={handlePublish}>
+            <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
+            <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
+          </button>
         </aside>
       </section>
       <Footer />

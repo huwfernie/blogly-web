@@ -27,7 +27,7 @@ function UserView({ user, signOut }) {
       return (
         <div className="blog-list-wrapper">
           <h2>Your Blogs</h2>
-          <div className="blog-list-wrapper">...loading data</div>
+          <div className="blog-list-wrapper">...loading blogs</div>
         </div>
       );
     } else {
@@ -84,7 +84,7 @@ function UserView({ user, signOut }) {
         </div>
       );
     } catch (error) {
-      return <div className="user-data-wrapper">...loading data</div>
+      return <div className="user-data-wrapper">...loading account settings</div>
     };
   }
 
