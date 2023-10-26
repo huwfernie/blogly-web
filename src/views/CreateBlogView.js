@@ -28,19 +28,20 @@ function CreateBlogView({ user, signOut }) {
   }
 
   return (
-    <div className="create-blog-view view">
+    <div className="create-blog-view view" data-testid="create-blog-view">
       <MainBar user={user} signOut={signOut} />
       <OwnerEditorBar />
       <section className="main-section section">
         <div className="blog-content content">
           <h1 className="headline">What's the title for your new blog?</h1>
-          <form id="new-blog-form" data-testid="new-blog-form">
+          <form id="new-blog-form">
             <input
               className='headline input'
               type="text"
               placeholder="title"
               value={title}
               onChange={(ev) => { setTitle(ev.target.value) }}
+              data-testid="create-title-input"
             ></input>
             <button onClick={(event) => { handleCreate(event) }}>OK</button>
           </form>

@@ -39,16 +39,6 @@ Amplify.configure(awsExports);
 // });
 // @TODO - END
 
-// @TODO - move into new wrapper - OptionalAuth?
-/*
-path: "/b/:id",
-    element:
-    <BypassAuth>
-      <ShowBlogView />
-    </BypassAuth>,
-},
-*/
-
 const router = createBrowserRouter([
   {
     path: "/",

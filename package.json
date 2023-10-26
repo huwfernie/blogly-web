@@ -6,7 +6,7 @@
     "@aws-amplify/ui-react": "^5.3.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/user-event": "^14.0.0",
     "aws-amplify": "^5.3.11",
     "dompurify": "^3.0.6",
     "lunr": "^2.3.9",
@@ -45,5 +45,17 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/public/",
+      "!<rootDir>/amplify/",
+      "!src/aws-exports.js",
+      "!src/reportWebVitals.js",
+      "!src/testing.js",
+      "!src/views/LoginView.js"
+    ]
   }
 }

@@ -63,7 +63,7 @@ function SearchResultView({ user, signOut }) {
 
     try {
         return (
-            <div className="search-result-view view" data-testid="searchResultView">
+            <div className="search-result-view view" data-testid="search-result-view">
                 <MainBar user={user} signOut={signOut} />
                 <section className="main-section section">
                     <div className="headline content">

@@ -1,5 +1,21 @@
 // file: helpers/__mocks__/blogLambda.js
 
+async function createBlog({ title, authorId }) {
+  const test1 = title !== undefined;
+  const test2 = authorId !== undefined;
+
+  const dummyData = {
+    success: true,
+    blogId: "1234"
+  }
+  
+  if (test1 && test2) {
+    return Promise.resolve(dummyData);
+  } else {
+    throw new Error("title and author must be defined");
+  }
+}
+
 async function getBlog({ blogId }) {
   const _blogId = blogId || "1eaadf37bd4e4f1097d122983daa56ca";
 
@@ -21,8 +37,7 @@ async function getBlog({ blogId }) {
 
 async function getBlogsByAuthor({ authorId }) {
 
-  const dummyData =
-  {
+  const dummyData = {
     success: true,
     body: [
       {
@@ -74,4 +89,26 @@ async function getFiveBlogs() {
   return Promise.resolve(dummyData);
 }
 
-export { getBlog, getBlogsByAuthor, getFiveBlogs };
+async function getAllBlogs() {
+  const dummyData = {
+    success: true,
+    data: [
+      {
+        blogId: "1",
+        title: "Same One"
+      },
+      {
+        blogId: "2",
+        title: "Same Two"
+      },
+      {
+        blogId: "3",
+        title: "Different three"
+      }
+    ]
+  }
+
+  return Promise.resolve(dummyData);
+}
+
+export { createBlog, getBlog, getBlogsByAuthor, getAllBlogs, getFiveBlogs };

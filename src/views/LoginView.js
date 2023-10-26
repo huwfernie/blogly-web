@@ -1,5 +1,5 @@
 // components/Login.js
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Authenticator, useAuthenticator, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -18,7 +18,7 @@ function Login() {
   }, [route, navigate, from]);
 
   return (
-    <View className="auth-wrapper">
+    <View className="auth-wrapper" data-testid="auth-wrapper">
       <Authenticator></Authenticator>
     </View>
   );
