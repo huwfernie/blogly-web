@@ -53,7 +53,7 @@ function SearchResultView({ user, signOut }) {
                 const _el = blogs.find((item) => {
                     return item.blogId === el.ref;
                 });
-                return <li key={index}>{_el.title} <Link to={`/b/${_el.blogId}`}>View</Link> </li>
+                return <li key={index} className="item"><h2 className="item-title" >{_el.title}</h2><Link to={`/b/${_el.blogId}`}>Open</Link> </li>
             });
         } else {
             return <div>No Results</div>
@@ -66,7 +66,7 @@ function SearchResultView({ user, signOut }) {
                 <MainBar user={user} signOut={signOut} />
                 <section className="main-section section">
                     <div className="headline content">
-                        <h1 className="headline">Results for: "{title}"</h1>
+                        <p>Results for: "{title}"</p>
                     </div>
                     <ul className="results-list content">
                         <List />

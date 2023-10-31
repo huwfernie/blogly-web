@@ -4,9 +4,15 @@
         display: block;
     }
 
-    li {
+    .item {
         list-style: none;
         margin-bottom: 0.5em;
         margin-left: 0;
+
+        &-title {
+            display: inline-block;
+            margin: 0 0.15em 0 0;
+            font-weight: normal;
+        }
     }
 }
