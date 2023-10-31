@@ -16,6 +16,7 @@ function EditBlogView({ user, signOut }) {
   const [blog, setBlog] = useState({ published: false, title: '' });
   const [blogContent, setBlogContent] = useState('');
   const [spinner, setSpinner] = useState({ show: false, value: '' });
+  const [contentsNotSaved, setContentsNotSaved] = useState(false);
   const navigate = useNavigate();
 
   const userId = user.attributes.sub;
@@ -36,9 +37,10 @@ function EditBlogView({ user, signOut }) {
     fetchData();
   }, [id, userId]);
 
-  // @TODO - prompt if you have changes and navigate away from the page
-
   function handleChange(content, delta, source, editor) {
+    if (contentsNotSaved === false) {
+      setContentsNotSaved(true);
+    }
     setBlogContent(content);
   }
 
@@ -74,6 +76,7 @@ function EditBlogView({ user, signOut }) {
     }
     await updateBlog(data)
     setSpinner({ show: false, value: '' });
+    setContentsNotSaved(false);
     return;
   }
 
@@ -111,10 +114,11 @@ function EditBlogView({ user, signOut }) {
           />
         </div>
         <aside className="side-content">
-          <button onClick={handleSave}>Save</button>
+          <button onClick={handleSave}>Save{contentsNotSaved === true && <span>*</span>}</button>
           <button onClick={handleDelete}>Delete</button>
           <button onClick={handlePublish} data-testid="publish-button">
-            <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
+            <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span>
+            <span> - </span>
             <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
           </button>
         </aside>
