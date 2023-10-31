@@ -1,8 +1,8 @@
 import React from "react";
 import SearchBar from "./SearchBar";
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom';
 
 // // @TODO - Mock the handleSearch function and test it
 

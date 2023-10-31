@@ -1,5 +1,17 @@
 // file: helpers/__mocks__/blogLambda.js
 
+function sanitizeText(content) {
+  // frist line should always be an H1
+  content = content.replace(/<(.*?)>(.*?)<(.*?)>/, '<h1>$2</h1>');
+  // title is the contents of the H1
+  const title = content.replace(/<h1>(.*?)<\/h1>(.*)/, '$1');
+  // body is everything after the h1
+  const body = content.replace(/(.*?)<\/h1>/, '');
+  // console.log("Title = ", title);
+  // console.log("Body = ", body);
+  return { title, body };
+}
+
 async function createBlog({ title, authorId }) {
   const test1 = title !== undefined;
   const test2 = authorId !== undefined;
@@ -17,6 +29,10 @@ async function createBlog({ title, authorId }) {
 }
 
 async function getBlog({ blogId }) {
+  if (blogId === "1" ) {
+    console.log(blogId);
+    console.log("TEST_PASS_GET_BLOG");
+  }
   const _blogId = blogId || "1eaadf37bd4e4f1097d122983daa56ca";
 
   const dummyData = {
@@ -33,6 +49,11 @@ async function getBlog({ blogId }) {
   }
 
   return Promise.resolve(dummyData);
+}
+
+async function updateBlog() {
+  console.log("TEST_PASS_UPDATE_BLOG");
+  return Promise.resolve({ success: true });
 }
 
 async function getBlogsByAuthor({ authorId }) {
@@ -111,4 +132,22 @@ async function getAllBlogs() {
   return Promise.resolve(dummyData);
 }
 
-export { createBlog, getBlog, getBlogsByAuthor, getAllBlogs, getFiveBlogs };
+async function deleteBlog() {
+  console.log("TEST_PASS_DELETE_BLOG");
+  return Promise.resolve({ success: true });
+}
+
+async function publishUnpublishBlog() {
+  console.log("TEST_PASS_PUBLISH_BLOG");
+  const body = {
+      blogId: "12",
+      userId: "12",
+      title: "test-blog",
+      authorId: "1234",
+      publishedDate: "today",
+      published: true
+  }
+  return Promise.resolve({ success: true, body });
+}
+
+export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, getFiveBlogs, getAllBlogs, sanitizeText }

@@ -8,7 +8,6 @@ import { testUser, signOut } from '../testing';
 
 jest.mock("../helpers/blogLambda");
 
-
 async function renderBlog() {
     return await act(async () => {
         render(

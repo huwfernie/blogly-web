@@ -17,9 +17,9 @@ import '@aws-amplify/ui-react/styles.css';
 
 // import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Authenticator } from '@aws-amplify/ui-react';
-import { RequireAuth } from './components/RequireAuth';
-import { BypassAuth } from './components/BypassAuth';
-import OptionalAuth from './components/OptionalAuth';
+import { RequireAuth } from './components/auth/RequireAuth';
+import { BypassAuth } from './components/auth/BypassAuth';
+import OptionalAuth from './components/auth/OptionalAuth';
 
 import {
   createBrowserRouter,

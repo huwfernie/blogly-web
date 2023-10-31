@@ -95,7 +95,6 @@ function EditBlogView({ user, signOut }) {
             theme="snow"
             value={blogContent}
             onChange={handleChange}
-            data-testid="test"
             modules={{
               toolbar: {
                 container: [
@@ -114,7 +113,7 @@ function EditBlogView({ user, signOut }) {
         <aside className="side-content">
           <button onClick={handleSave}>Save</button>
           <button onClick={handleDelete}>Delete</button>
-          <button onClick={handlePublish}>
+          <button onClick={handlePublish} data-testid="publish-button">
             <span className={`option ${blog.published === true ? 'active' : 'inactive'}`}>Public</span> -
             <span className={`option ${blog.published === false ? 'active' : 'inactive'}`}>Private</span>
           </button>

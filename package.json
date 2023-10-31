@@ -55,7 +55,8 @@
       "!src/aws-exports.js",
       "!src/reportWebVitals.js",
       "!src/testing.js",
-      "!src/views/LoginView.js"
+      "!src/views/LoginView.js",
+      "!src/helpers/*.js"
     ]
   }
 }
