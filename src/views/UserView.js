@@ -14,9 +14,10 @@ function UserView({ user, signOut }) {
 
   useEffect(() => {
     async function fetchBlogData() {
-      const data = await getBlogsByAuthor({ authorId });
-      if (data.success) {
-        setBlogData(data.body);
+      const apiCall = await getBlogsByAuthor({ authorId });
+      console.log(apiCall);
+      if (apiCall.success === true) {
+        setBlogData(apiCall.response);
       }
     }
     fetchBlogData();

@@ -26,10 +26,10 @@ function EditBlogView({ user, signOut }) {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getBlog({ blogId: id, userId });
-      if (data.success === true) {
-        setBlog(data.body);
-        setBlogContent(`<h1>${data.body.title}</h1>${data.body.body}`);
+      const apiCall = await getBlog({ blogId: id, userId });
+      if (apiCall.success === true) {
+        setBlog(apiCall.response);
+        setBlogContent(`<h1>${apiCall.response.title}</h1>${apiCall.response.body}`);
       }
       return;
     }
@@ -52,10 +52,10 @@ function EditBlogView({ user, signOut }) {
       published: blog.published,
       authorId: userId
     }
-    data = await publishUnpublishBlog(data);
+    const apiCall = await publishUnpublishBlog(data);
 
-    if (data.success === true) {
-      setBlog(data.body);
+    if (apiCall.success === true) {
+      setBlog(apiCall.response);
     }
     setSpinner({ show: false, value: '' });
     return;

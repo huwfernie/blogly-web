@@ -21,9 +21,9 @@ function CreateBlogView({ user, signOut }) {
       authorId
     }
 
-    const response = await createBlog(data);
-    if (response.success === true) {
-      navigate(`/e/${response.blogId}`);
+    const apiCall = await createBlog(data);
+    if (apiCall.success === true) {
+      navigate(`/e/${apiCall.response.blogId}`);
     }
   }
 

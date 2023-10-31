@@ -36,9 +36,9 @@ function BlogShowView({ user, signOut }) {
       } else {
         userId = user.attributes.sub;
       }
-      const data = await getBlog({ blogId, userId });
-      if (data.success === true) {
-        setBlog(data.body);
+      const apiCall = await getBlog({ blogId, userId });
+      if (apiCall.success === true) {
+        setBlog(apiCall.response);
       }
       return;
     }

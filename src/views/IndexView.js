@@ -9,8 +9,10 @@ function Index({ user, signOut }) {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getFiveBlogs();
-      setBlogList(data);
+      const apiCall = await getFiveBlogs();
+      if (apiCall.success === true) {
+        setBlogList(apiCall.response);
+      }
       return;
     }
     fetchData();

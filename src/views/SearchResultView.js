@@ -18,9 +18,9 @@ function SearchResultView({ user, signOut }) {
 
     useEffect(() => {
         async function init() {
-            const res = await getAllBlogs();
-            if (res.success === true) {
-                setBlogs(res.data);
+            const apiCall = await getAllBlogs();
+            if (apiCall.success === true) {
+                setBlogs(apiCall.response);
             }
             return;
         }
@@ -28,7 +28,6 @@ function SearchResultView({ user, signOut }) {
     }, []);
 
     useEffect(() => {
-        // console.log(blogs);
         if (blogs.length > 0 && title !== null) {
             // Create search index
             const idx = lunr(function () {
