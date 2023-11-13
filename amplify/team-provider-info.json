@@ -19,7 +19,7 @@
       "function": {
         "blogLambda": {
           "deploymentBucketName": "amplify-bloglyweb-main-144143-deployment",
-          "s3Key": "amplify-builds/blogLambda-573437324c7047475143-build.zip"
+          "s3Key": "amplify-builds/blogLambda-3131476a484c33466f67-build.zip"
         },
         "blogUsersLambda": {
           "deploymentBucketName": "amplify-bloglyweb-main-144143-deployment",
@@ -33,6 +33,9 @@
       "storage": {
         "blogStorage": {},
         "blogTable": {}
+      },
+      "api": {
+        "blogApi": {}
       }
     }
   },

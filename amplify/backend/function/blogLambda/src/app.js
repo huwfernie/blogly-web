@@ -167,14 +167,20 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, async function (req, res) 
 
     const filterString = `\"sub\"=\"${blogData.authorId}\"`;
 
+    const deployment = process.env.AWS_BRANCH;
+
     let getAuthorParams = {
-      UserPoolId: 'eu-west-2_mtGeF4Ozt', /* required */
+      UserPoolId: 'eu-west-2_F4UN5NXmE', /* required */
       AttributesToGet: [
         "name"
       ],
       Filter: String(filterString),
       Limit: 1
-    };
+    }; 
+
+    if (deployment === "main") {
+      getAuthorParams.UserPoolId = 'eu-west-2_F4UN5NXmE';
+    }
 
     const authorName = await getAuthorAsync(getAuthorParams);
     // console.log("authorName :: ", authorName);

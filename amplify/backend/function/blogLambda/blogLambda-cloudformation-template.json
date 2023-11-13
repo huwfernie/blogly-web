@@ -151,7 +151,10 @@
               "Action": [
                 "cognito-idp:ListUsers"
               ],
-              "Resource": "arn:aws:cognito-idp:eu-west-2:482668114863:userpool/eu-west-2_mtGeF4Ozt"
+              "Resource": [
+                "arn:aws:cognito-idp:eu-west-2:482668114863:userpool/eu-west-2_mtGeF4Ozt",
+                "arn:aws:cognito-idp:eu-west-2:482668114863:userpool/eu-west-2_F4UN5NXmE"
+              ]
             },
             {
               "Effect": "Allow",
