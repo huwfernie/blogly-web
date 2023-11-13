@@ -1,4 +1,41 @@
 {
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bloglyweb-main-144143-authRole",
+      "UnauthRoleArn": "arn:aws:iam::482668114863:role/amplify-bloglyweb-main-144143-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::482668114863:role/amplify-bloglyweb-main-144143-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-bloglyweb-main-144143-deployment",
+      "UnauthRoleName": "amplify-bloglyweb-main-144143-unauthRole",
+      "StackName": "amplify-bloglyweb-main-144143",
+      "StackId": "arn:aws:cloudformation:eu-west-2:482668114863:stack/amplify-bloglyweb-main-144143/4936f580-71b2-11ee-943f-0a5ec561c4de",
+      "AmplifyAppId": "d31xamsvwbkhgc",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-bloglyweb-main-144143-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "auth": {
+        "bloglywebc3548e47": {}
+      },
+      "function": {
+        "blogLambda": {
+          "deploymentBucketName": "amplify-bloglyweb-main-144143-deployment",
+          "s3Key": "amplify-builds/blogLambda-573437324c7047475143-build.zip"
+        },
+        "blogUsersLambda": {
+          "deploymentBucketName": "amplify-bloglyweb-main-144143-deployment",
+          "s3Key": "amplify-builds/blogUsersLambda-74664b62564f3368324d-build.zip"
+        },
+        "bloglyWebAuthorLambda": {
+          "deploymentBucketName": "amplify-bloglyweb-main-144143-deployment",
+          "s3Key": "amplify-builds/bloglyWebAuthorLambda-78335168754c74386173-build.zip"
+        }
+      },
+      "storage": {
+        "blogStorage": {},
+        "blogTable": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-bloglyweb-dev-125048-authRole",
