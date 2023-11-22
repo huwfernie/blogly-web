@@ -1,3 +1,13 @@
+@mixin for-medium {
+    @media only screen and (max-width: 830px) {
+        @content;
+    }
+}
+@mixin for-small {
+    @media only screen and (max-width: 600px) {
+        @content;
+    }
+}
 
 .index-view {
     .index-bar span {
@@ -8,11 +18,23 @@
         display: inline-block;
         margin: 15% auto 10%;
         font-size: 84px;
+
+        @include for-medium {
+            font-size: 48px;
+        }
+
+        @include for-small {
+            font-size: 32px;
+        }
+
     }
 
     .grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        @include for-small {
+            grid-template-columns: [l] 1fr [r];
+        }
 
         div {
             text-align: center;
