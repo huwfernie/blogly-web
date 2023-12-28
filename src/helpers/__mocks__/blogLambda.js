@@ -18,9 +18,11 @@ async function createBlog({ title, authorId }) {
 
   const dummyData = {
     success: true,
-    blogId: "1234"
+    response: {
+      blogId: "1234"
+    }
   }
-  
+
   if (test1 && test2) {
     return Promise.resolve(dummyData);
   } else {
@@ -29,7 +31,7 @@ async function createBlog({ title, authorId }) {
 }
 
 async function getBlog({ blogId }) {
-  if (blogId === "1" ) {
+  if (blogId === "1") {
     console.log(blogId);
     console.log("TEST_PASS_GET_BLOG");
   }
@@ -37,7 +39,7 @@ async function getBlog({ blogId }) {
 
   const dummyData = {
     success: true,
-    body: {
+    response: {
       blogId: _blogId,
       userId: "12",
       title: "Blog 1 Heading",
@@ -60,7 +62,7 @@ async function getBlogsByAuthor({ authorId }) {
 
   const dummyData = {
     success: true,
-    body: [
+    response: [
       {
         authorId: authorId,
         blogId: "1eaadf37bd4e4f1097d122983daa56ca",
@@ -113,7 +115,7 @@ async function getFiveBlogs() {
 async function getAllBlogs() {
   const dummyData = {
     success: true,
-    data: [
+    response: [
       {
         blogId: "1",
         title: "Same One"
@@ -140,14 +142,14 @@ async function deleteBlog() {
 async function publishUnpublishBlog() {
   console.log("TEST_PASS_PUBLISH_BLOG");
   const body = {
-      blogId: "12",
-      userId: "12",
-      title: "test-blog",
-      authorId: "1234",
-      publishedDate: "today",
-      published: true
+    blogId: "12",
+    userId: "12",
+    title: "test-blog",
+    authorId: "1234",
+    publishedDate: "today",
+    published: true
   }
-  return Promise.resolve({ success: true, body });
+  return Promise.resolve({ success: true, response: body });
 }
 
 export { createBlog, getBlog, updateBlog, deleteBlog, getBlogsByAuthor, publishUnpublishBlog, getFiveBlogs, getAllBlogs, sanitizeText }
